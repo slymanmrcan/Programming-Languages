@@ -183,106 +183,135 @@
     </nav>
 
     <section id="diller">
-      <h2>Diller ve Konumları</h2>
+      <h2>Diller ve Nerede Parlar</h2>
       <div class="grid">
         <div class="card">
           <h3>JavaScript / Node.js</h3>
           <p class="muted">Modern API, realtime, hızlı geliştirme.</p>
-          <div class="pill-list">
-            <span class="tag">Event-driven</span>
-            <span class="tag">WebSocket</span>
-          </div>
+          <ul>
+            <li><strong>Kullan:</strong> Realtime (WebSocket), çok I/O’lu API’ler.</li>
+            <li><strong>Güçlü:</strong> Tek dilde (JS/TS) uçtan uca, devasa paket ekosistemi.</li>
+            <li><strong>Dikkat:</strong> CPU-bound işlerde tıkanır; worker/thread offload gerek.</li>
+          </ul>
         </div>
         <div class="card">
           <h3>TypeScript</h3>
           <p class="muted">JavaScript'in tipli hali → backend için daha güvenli.</p>
-          <div class="pill-list">
-            <span class="tag">Tip güvenliği</span>
-            <span class="tag">Refactor kolaylığı</span>
-          </div>
+          <ul>
+            <li><strong>Kullan:</strong> Node.js projelerinde hata payını azaltmak.</li>
+            <li><strong>Güçlü:</strong> Refactor güveni, IDE otomasyonu, kontrat netliği.</li>
+            <li><strong>Dikkat:</strong> Build/tsconfig disiplini şart; tip tanımları güncel kalmalı.</li>
+          </ul>
         </div>
         <div class="card">
           <h3>Golang (Go)</h3>
           <p class="muted">Basit, hızlı, cloud-native, microservice dostu.</p>
-          <div class="pill-list">
-            <span class="tag">Goroutine</span>
-            <span class="tag">Tek binary</span>
-          </div>
+          <ul>
+            <li><strong>Kullan:</strong> Yüksek trafikli API, altyapı/DevOps araçları.</li>
+            <li><strong>Güçlü:</strong> Goroutine’ler, tek binary deploy, hız ve sadelik.</li>
+            <li><strong>Dikkat:</strong> Generics sınırlı; framework yerine kütüphane toplarsın.</li>
+          </ul>
         </div>
         <div class="card">
           <h3>C# / .NET Core</h3>
           <p class="muted">Kurumsal backend, güçlü API mimarisi, cross-platform.</p>
-          <div class="pill-list">
-            <span class="tag">ASP.NET Core</span>
-            <span class="tag">DI &amp; Middleware</span>
-          </div>
+          <ul>
+            <li><strong>Kullan:</strong> Enterprise API, yüksek güvenlik, uzun soluklu projeler.</li>
+            <li><strong>Güçlü:</strong> ASP.NET Core pipeline, DI, tooling, Windows/Linux sorunsuz.</li>
+            <li><strong>Dikkat:</strong> Runtime boyutu; bazı senaryolarda container imajı büyük.</li>
+          </ul>
         </div>
         <div class="card">
           <h3>Python</h3>
           <p class="muted">Hafif API (Flask/FastAPI), data &amp; automation.</p>
-          <div class="pill-list">
-            <span class="tag">Hızlı prototip</span>
-            <span class="tag">AI/Data eko</span>
-          </div>
+          <ul>
+            <li><strong>Kullan:</strong> Prototip, AI/ML servisleri, script + API birleşimi.</li>
+            <li><strong>Güçlü:</strong> Zengin bilimsel ekosistem, basitlik.</li>
+            <li><strong>Dikkat:</strong> CPU-bound için yavaş; async yapıda dikkatli ol.</li>
+          </ul>
         </div>
         <div class="card">
           <h3>PHP</h3>
           <p class="muted">Laravel ile klasik web backend kültürü.</p>
-          <div class="pill-list">
-            <span class="tag">Laravel</span>
-            <span class="tag">Monolith hızlı</span>
-          </div>
+          <ul>
+            <li><strong>Kullan:</strong> CRUD ağırlıklı web app, monolith hızlı çıkarma.</li>
+            <li><strong>Güçlü:</strong> Laravel ekosistemi, hosting kolaylığı.</li>
+            <li><strong>Dikkat:</strong> Yüksek performans için opcache/queue tuning gerek.</li>
+          </ul>
         </div>
         <div class="card">
           <h3>Ruby</h3>
           <p class="muted">Rails → modern web framework kültürünün kurucusu.</p>
-          <div class="pill-list">
-            <span class="tag">Convention</span>
-            <span class="tag">Productivity</span>
-          </div>
+          <ul>
+            <li><strong>Kullan:</strong> Ürün odaklı SaaS, CRUD + dashboard.</li>
+            <li><strong>Güçlü:</strong> Convention over configuration, hızlı MVP.</li>
+            <li><strong>Dikkat:</strong> Yüksek trafik için scaling ve background job stratejisi şart.</li>
+          </ul>
         </div>
         <div class="card">
           <h3>Elixir</h3>
-          <p class="muted">Erlang VM üzerinde yüksek concurrency dili.</p>
-          <div class="pill-list">
-            <span class="tag">BEAM</span>
-            <span class="tag">Fault-tolerant</span>
-          </div>
+          <p class="muted">Erlang VM üzerinde yüksek concurrency.</p>
+          <ul>
+            <li><strong>Kullan:</strong> Realtime, messaging, fault-tolerant servisler.</li>
+            <li><strong>Güçlü:</strong> BEAM dayanıklılığı, milyonlarca lightweight process.</li>
+            <li><strong>Dikkat:</strong> Ekipte BEAM deneyimi gerek; ekosistem görece niş.</li>
+          </ul>
         </div>
         <div class="card">
           <h3>Kotlin</h3>
           <p class="muted">Java ekosisteminin modern alternatifi. Backend + Android desteği.</p>
-          <div class="pill-list">
-            <span class="tag">JVM</span>
-            <span class="tag">Ktor / Spring</span>
-          </div>
+          <ul>
+            <li><strong>Kullan:</strong> JVM üzerinde modern backend; Android + backend aynı dil.</li>
+            <li><strong>Güçlü:</strong> Spring ile uyum, Ktor ile hafif API.</li>
+            <li><strong>Dikkat:</strong> JVM tuning bilgisi gerekir; build sürelerini optimize et.</li>
+          </ul>
         </div>
       </div>
     </section>
 
     <section id="veri-tabani">
       <h2>SQL ve Veri Tabanı Ekosistemi</h2>
-      <p class="muted">Dil seçiminin yanında temel DB kası şart. Öne çıkanlar:</p>
+      <p class="muted">Backend kası = DB kası. Ne zaman hangisini kullanacağın:</p>
       <div class="grid">
         <div class="card">
           <h3>PostgreSQL</h3>
-          <p class="muted">Genel amaçlı, güçlü SQL özellikleri.</p>
+          <ul>
+            <li><strong>Kullan:</strong> Varsayılan seçimin; güçlü SQL, JSONB, extension.</li>
+            <li><strong>Güçlü:</strong> ACID, zengin index tipleri, CTE.</li>
+            <li><strong>Dikkat:</strong> Replikasyon/partition planı kur; vacuum ayarlarını takip et.</li>
+          </ul>
         </div>
         <div class="card">
           <h3>MySQL / MariaDB</h3>
-          <p class="muted">Yaygın, kolay barındırma, klasik LAMP mirası.</p>
+          <ul>
+            <li><strong>Kullan:</strong> LAMP mirası, hazır managed servisler.</li>
+            <li><strong>Güçlü:</strong> Yaygın hosting, basit kullanım.</li>
+            <li><strong>Dikkat:</strong> Versiyon/engine (InnoDB) seçimine bak; bazı gelişmiş SQL özellikleri kısıtlı.</li>
+          </ul>
         </div>
         <div class="card">
           <h3>SQLite</h3>
-          <p class="muted">Gömülü, tek dosya, prototip ve edge senaryolar.</p>
+          <ul>
+            <li><strong>Kullan:</strong> Tek dosya, edge, mobil, prototip.</li>
+            <li><strong>Güçlü:</strong> Sıfır ops, basit dağıtım.</li>
+            <li><strong>Dikkat:</strong> Yüksek concurrency yok; sunucu modunda değil.</li>
+          </ul>
         </div>
         <div class="card">
           <h3>Redis</h3>
-          <p class="muted">In-memory cache ve queue işleri.</p>
+          <ul>
+            <li><strong>Kullan:</strong> Cache, rate limit, queue/counter.</li>
+            <li><strong>Güçlü:</strong> In-memory hız, TTL, pub/sub.</li>
+            <li><strong>Dikkat:</strong> RAM maliyeti; persistence modunu ihtiyaca göre ayarla.</li>
+          </ul>
         </div>
         <div class="card">
           <h3>MongoDB</h3>
-          <p class="muted">NoSQL, esnek şema, doküman tabanlı.</p>
+          <ul>
+            <li><strong>Kullan:</strong> Esnek şema, doküman tabanlı veri.</li>
+            <li><strong>Güçlü:</strong> Hızlı iterasyon, nested veri modelleme.</li>
+            <li><strong>Dikkat:</strong> Şema disiplini kaybolursa teknik borç birikir; index stratejisi şart.</li>
+          </ul>
         </div>
       </div>
     </section>
@@ -292,59 +321,59 @@
       <div class="grid">
         <div class="card">
           <h3>Request–Response Cycle</h3>
-          <p class="muted">Client → Server → DB → Server → Client akışını bil.</p>
+          <p class="muted">Client → Server → DB → Server → Client akışı. Monitoring’de trace’lemek kritik.</p>
         </div>
         <div class="card">
           <h3>Routing</h3>
-          <p class="muted">URL → hangi handler çalışacak; REST/GraphQL entry noktası.</p>
+          <p class="muted">URL → handler. REST/GraphQL entry noktası; versiyonlama (v1/v2) unutma.</p>
         </div>
         <div class="card">
           <h3>Middleware</h3>
-          <p class="muted">Auth, logging, rate limiting, error handler, session, body parser.</p>
+          <p class="muted">Auth, logging, rate limit, error handler, session, body parser; sıralama önemlidir.</p>
         </div>
         <div class="card">
           <h3>Controller / Handler</h3>
-          <p class="muted">İsteği alır, iş mantığını çalıştırır, yanıtı hazırlar.</p>
+          <p class="muted">İsteği alır, iş mantığını çalıştırır, yanıtı hazırlar; slim controller, service katmanı ekle.</p>
         </div>
         <div class="card">
           <h3>ORM / Query Builder</h3>
-          <p class="muted">Tabloyu koda map eder. Örn: Prisma, Entity Framework, Django ORM, Eloquent, Hibernate, TypeORM.</p>
+          <p class="muted">Tabloyu koda map eder. Prisma, Entity Framework, Django ORM, Eloquent, Hibernate, TypeORM.</p>
         </div>
         <div class="card">
           <h3>API Türleri</h3>
-          <p class="muted">REST, GraphQL, gRPC, WebSocket → protokol ve veri modeli kararları.</p>
+          <p class="muted">REST (genel), GraphQL (esnek client), gRPC (performans/contract), WebSocket (realtime).</p>
         </div>
         <div class="card">
           <h3>I/O-bound vs CPU-bound</h3>
-          <p class="muted">I/O dış kaynağı bekler; CPU hesap yapar. Dil seçimi ve ölçek için kritik ayrım.</p>
+          <p class="muted">I/O dış kaynağı bekler; CPU hesap yapar. Node için I/O, Go/.NET için karma yükler.</p>
         </div>
         <div class="card">
           <h3>Concurrency</h3>
-          <p class="muted">Birden fazla işin ilerlemesi; event loop, goroutine, thread pool ile yönetilir.</p>
+          <p class="muted">Birden fazla işin ilerlemesi; event loop, goroutine, thread pool ile planlanır.</p>
         </div>
         <div class="card">
           <h3>Parallelism</h3>
-          <p class="muted">Gerçekten aynı anda çekirdeklerde çalışma; CPU-bound işleri hızlandırır.</p>
+          <p class="muted">Aynı anda çekirdeklerde çalışma; CPU-bound işleri hızlandırır, CPU sayısına bağlı.</p>
         </div>
         <div class="card">
           <h3>Framework Mantığı</h3>
-          <p class="muted">Routing + middleware + controller + config + DI birleşimi.</p>
+          <p class="muted">Routing + middleware + controller + config + DI. Standartlaştırır, tekrar eden işleri çözer.</p>
         </div>
         <div class="card">
           <h3>Monolith vs Microservice</h3>
-          <p class="muted">Monolith = tek app; Microservice = küçük bağımsız servisler.</p>
+          <p class="muted">Monolith = tek app, kolay başla; Microservice = bağımsız servis, dağıtık karmaşıklık.</p>
         </div>
         <div class="card">
           <h3>Scaling</h3>
-          <p class="muted">Vertical: CPU/RAM artır. Horizontal: yeni instance çoğalt.</p>
+          <p class="muted">Vertical: CPU/RAM artır. Horizontal: instance çoğalt, load balancer ekle.</p>
         </div>
         <div class="card">
           <h3>Caching</h3>
-          <p class="muted">Redis, Memcached ile sıcak veriyi hızlandır.</p>
+          <p class="muted">Redis, Memcached ile sıcak veri; cache invalidation stratejisi belirle.</p>
         </div>
         <div class="card">
           <h3>Environment &amp; Config</h3>
-          <p class="muted">.env, secrets yönetimi, ortam bazlı config.</p>
+          <p class="muted">.env, secrets yönetimi, ortam bazlı config; prod/stage/dev ayrımı net olsun.</p>
         </div>
       </div>
     </section>
