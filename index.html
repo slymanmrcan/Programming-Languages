@@ -8,10 +8,10 @@
     @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap');
 
     :root {
-      --bg: #0b1220;
-      --panel: #111a2c;
-      --panel-strong: #0d1728;
-      --accent: #6ee7b7;
+      --bg: #0c1020;
+      --panel: #10172a;
+      --panel-strong: #0b1222;
+      --accent: #7dd3fc;
       --muted: #9ca3af;
       --text: #e5e7eb;
       --border: #1f2937;
@@ -31,7 +31,7 @@
     }
 
     .shell {
-      max-width: 1100px;
+      max-width: 1200px;
       margin: 0 auto;
       padding-top: 2rem;
     }
@@ -55,27 +55,49 @@
       max-width: 720px;
     }
 
-    nav.menu {
+    .layout {
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      gap: 1rem;
+      align-items: start;
+    }
+
+    @media (max-width: 960px) {
+      .layout {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    aside.toc {
       position: sticky;
-      top: 0;
-      z-index: 10;
-      background: rgba(11, 18, 32, 0.92);
-      backdrop-filter: blur(10px);
+      top: 1rem;
+      align-self: start;
+      background: var(--panel-strong);
       border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 0.5rem;
+      border-radius: 14px;
+      padding: 1rem;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+    }
+
+    .toc-title {
+      font-weight: 700;
+      margin-bottom: 0.4rem;
+      letter-spacing: -0.01em;
+    }
+
+    nav.menu {
       display: flex;
-      gap: 0.5rem;
-      flex-wrap: wrap;
-      margin-bottom: 1.2rem;
+      flex-direction: column;
+      gap: 0.3rem;
+      margin-bottom: 0.8rem;
     }
 
     nav.menu a {
       color: var(--text);
       text-decoration: none;
-      padding: 0.55rem 0.9rem;
+      padding: 0.55rem 0.85rem;
       border-radius: 10px;
-      border: 1px solid transparent;
+      border: 1px solid var(--border);
       background: var(--panel);
       transition: all 150ms ease;
       font-weight: 600;
@@ -84,17 +106,25 @@
 
     nav.menu a:hover {
       border-color: var(--accent);
-      color: #0f172a;
+      color: #0b1222;
       background: var(--accent);
+    }
+
+    .toc-note {
+      font-size: 0.9rem;
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+      padding-top: 0.6rem;
+      margin-top: 0.6rem;
     }
 
     section {
       background: var(--panel-strong);
       border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 1.2rem 1.5rem;
+      border-radius: 14px;
+      padding: 1.2rem 1.3rem;
       margin-bottom: 1rem;
-      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
     }
 
     section h2 {
@@ -117,7 +147,7 @@
     .card {
       background: var(--panel);
       border: 1px solid var(--border);
-      border-radius: 14px;
+      border-radius: 12px;
       padding: 1rem;
       display: flex;
       flex-direction: column;
@@ -196,13 +226,25 @@
       </p>
     </header>
 
-    <nav class="menu">
-      <a href="#diller">Diller</a>
-      <a href="#veri-tabani">Veri Tabanı</a>
-      <a href="#kavramlar">Backend Kavramları</a>
-      <a href="#haric">Kapsam Dışı</a>
-      <a href="#not">Not</a>
-    </nav>
+    <div class="layout">
+      <aside class="toc">
+        <div class="toc-title">İçindekiler</div>
+        <nav class="menu">
+          <a href="#diller">Diller</a>
+          <a href="#veri-tabani">Veri Tabanı</a>
+          <a href="#kavramlar">Backend Kavramları</a>
+          <a href="#kavram-dokumani">Kavram Dokümanı</a>
+          <a href="#dil-eko-ozet">Dil/Eko Özet</a>
+          <a href="#db-kavramlar">DB Kavramları</a>
+          <a href="#dagitik-perf">Dağıtık &amp; Performans</a>
+          <a href="#guvenlik">Güvenlik</a>
+          <a href="#teknik-kavramlar">Teknik Kavramlar</a>
+          <a href="#haric">Kapsam Dışı</a>
+          <a href="#not">Not</a>
+        </nav>
+        <div class="toc-note">Doküman modu: Başlıklara tıklayarak ilgili bölüme atla.</div>
+      </aside>
+      <main class="content">
 
     <section id="diller">
       <h2>Diller ve Nerede Parlar</h2>
@@ -686,6 +728,8 @@
         </div>
       </div>
     </section>
+      </main>
+    </div>
   </div>
   <a class="to-top" href="#top" aria-label="Başa dön">Yukarı ↑</a>
 </body>
