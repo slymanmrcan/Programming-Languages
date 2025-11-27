@@ -1,363 +1,371 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-  <meta charset="UTF-8" />
-  <title>Backend ve Programlama Dilleri - Temel Kavramlar</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Backend Hızlı Rehber</title>
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
+    :root {
+      --bg: #0b1220;
+      --panel: #111a2c;
+      --panel-strong: #0d1728;
+      --accent: #6ee7b7;
+      --muted: #9ca3af;
+      --text: #e5e7eb;
+      --border: #1f2937;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
     body {
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      line-height: 1.6;
       margin: 0;
-      padding: 2rem;
-      max-width: 900px;
-      margin-inline: auto;
-      background: #f5f5f5;
+      font-family: 'Space Grotesk', 'Inter', system-ui, -apple-system, sans-serif;
+      background: radial-gradient(circle at 20% 20%, rgba(110, 231, 183, 0.08), transparent 26%), var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      padding: 0 1.5rem 3rem;
     }
-    h1, h2, h3 {
-      margin-top: 1.8rem;
+
+    .shell {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding-top: 2rem;
     }
-    code {
-      background: #eee;
-      padding: 0.1rem 0.3rem;
-      border-radius: 3px;
-      font-size: 0.95em;
+
+    header {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
     }
-    .note {
-      background: #fff8e1;
-      border-left: 4px solid #ffb300;
-      padding: 0.75rem 1rem;
-      margin: 1rem 0;
-      font-size: 0.9rem;
+
+    h1 {
+      margin: 0;
+      font-size: clamp(1.8rem, 3vw, 2.4rem);
+      letter-spacing: -0.02em;
     }
-    .tag {
-      display: inline-block;
-      padding: 0.1rem 0.6rem;
-      border-radius: 999px;
-      background: #e0e0e0;
-      font-size: 0.8rem;
-      margin-right: 0.35rem;
+
+    p.lead {
+      margin: 0;
+      color: var(--muted);
+      max-width: 720px;
+    }
+
+    nav.menu {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: rgba(11, 18, 32, 0.92);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 0.5rem;
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin-bottom: 1.2rem;
+    }
+
+    nav.menu a {
+      color: var(--text);
+      text-decoration: none;
+      padding: 0.55rem 0.9rem;
+      border-radius: 10px;
+      border: 1px solid transparent;
+      background: var(--panel);
+      transition: all 150ms ease;
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+
+    nav.menu a:hover {
+      border-color: var(--accent);
+      color: #0f172a;
+      background: var(--accent);
+    }
+
+    section {
+      background: var(--panel-strong);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 1.2rem 1.5rem;
+      margin-bottom: 1rem;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
+    }
+
+    section h2 {
+      margin-top: 0;
+      margin-bottom: 0.65rem;
+      letter-spacing: -0.01em;
+    }
+
+    section h3 {
+      margin-top: 1.1rem;
       margin-bottom: 0.35rem;
     }
+
+    .grid {
+      display: grid;
+      gap: 0.75rem;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.25rem 0.65rem;
+      border-radius: 999px;
+      background: rgba(110, 231, 183, 0.12);
+      color: var(--text);
+      border: 1px solid rgba(110, 231, 183, 0.35);
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+
     ul {
-      padding-left: 1.2rem;
+      margin: 0.3rem 0;
+      padding-left: 1.1rem;
+      color: var(--muted);
+    }
+
+    li + li {
+      margin-top: 0.25rem;
+    }
+
+    .muted {
+      color: var(--muted);
+    }
+
+    .pill-list {
+      display: flex;
+      gap: 0.4rem;
+      flex-wrap: wrap;
+      margin: 0.4rem 0 0;
+    }
+
+    .callout {
+      border-left: 4px solid var(--accent);
+      padding-left: 0.75rem;
+      color: var(--muted);
     }
   </style>
 </head>
 <body>
+  <div class="shell">
+    <header>
+      <h1>Backend Hızlı Rehber</h1>
+      <p class="lead">
+        Modern backend için dil seçimleri ve kavramlar. Hafif, sahada işe yarar bir özet; ağır mimari detaylar ve kernel tartışmaları yok.
+      </p>
+    </header>
 
-  <h1>Backend & Programlama Dilleri - Temel Kavramlar Notları</h1>
+    <nav class="menu">
+      <a href="#diller">Diller</a>
+      <a href="#veri-tabani">Veri Tabanı</a>
+      <a href="#kavramlar">Backend Kavramları</a>
+      <a href="#haric">Kapsam Dışı</a>
+      <a href="#not">Not</a>
+    </nav>
 
-  <div class="note">
-    Bu doküman; Go, Node.js, .NET, Rust gibi diller arasında seçim yaparken 
-    temel kavramları anlamak için hazırlanmış bir özet. 
-    <br>
-    İleride Codex / başka bir araç ile genişletmek için başlık odaklı yazıldı.
-  </div>
+    <section id="diller">
+      <h2>Diller ve Konumları</h2>
+      <div class="grid">
+        <div class="card">
+          <h3>JavaScript / Node.js</h3>
+          <p class="muted">Modern API, realtime, hızlı geliştirme.</p>
+          <div class="pill-list">
+            <span class="tag">Event-driven</span>
+            <span class="tag">WebSocket</span>
+          </div>
+        </div>
+        <div class="card">
+          <h3>TypeScript</h3>
+          <p class="muted">JavaScript'in tipli hali → backend için daha güvenli.</p>
+          <div class="pill-list">
+            <span class="tag">Tip güvenliği</span>
+            <span class="tag">Refactor kolaylığı</span>
+          </div>
+        </div>
+        <div class="card">
+          <h3>Golang (Go)</h3>
+          <p class="muted">Basit, hızlı, cloud-native, microservice dostu.</p>
+          <div class="pill-list">
+            <span class="tag">Goroutine</span>
+            <span class="tag">Tek binary</span>
+          </div>
+        </div>
+        <div class="card">
+          <h3>C# / .NET Core</h3>
+          <p class="muted">Kurumsal backend, güçlü API mimarisi, cross-platform.</p>
+          <div class="pill-list">
+            <span class="tag">ASP.NET Core</span>
+            <span class="tag">DI &amp; Middleware</span>
+          </div>
+        </div>
+        <div class="card">
+          <h3>Python</h3>
+          <p class="muted">Hafif API (Flask/FastAPI), data &amp; automation.</p>
+          <div class="pill-list">
+            <span class="tag">Hızlı prototip</span>
+            <span class="tag">AI/Data eko</span>
+          </div>
+        </div>
+        <div class="card">
+          <h3>PHP</h3>
+          <p class="muted">Laravel ile klasik web backend kültürü.</p>
+          <div class="pill-list">
+            <span class="tag">Laravel</span>
+            <span class="tag">Monolith hızlı</span>
+          </div>
+        </div>
+        <div class="card">
+          <h3>Ruby</h3>
+          <p class="muted">Rails → modern web framework kültürünün kurucusu.</p>
+          <div class="pill-list">
+            <span class="tag">Convention</span>
+            <span class="tag">Productivity</span>
+          </div>
+        </div>
+        <div class="card">
+          <h3>Elixir</h3>
+          <p class="muted">Erlang VM üzerinde yüksek concurrency dili.</p>
+          <div class="pill-list">
+            <span class="tag">BEAM</span>
+            <span class="tag">Fault-tolerant</span>
+          </div>
+        </div>
+        <div class="card">
+          <h3>Kotlin</h3>
+          <p class="muted">Java ekosisteminin modern alternatifi. Backend + Android desteği.</p>
+          <div class="pill-list">
+            <span class="tag">JVM</span>
+            <span class="tag">Ktor / Spring</span>
+          </div>
+        </div>
+      </div>
+    </section>
 
-  <h2>0. Genel Kavram Haritası</h2>
-  <p>Bu dokümanda sık geçen ana kavramlar:</p>
-  <p>
-    <span class="tag">Programming Language</span>
-    <span class="tag">Runtime</span>
-    <span class="tag">Framework</span>
-    <span class="tag">Library</span>
-    <span class="tag">I/O-bound</span>
-    <span class="tag">CPU-bound</span>
-    <span class="tag">Concurrency</span>
-    <span class="tag">Parallelism</span>
-    <span class="tag">Thread</span>
-    <span class="tag">Event Loop</span>
-    <span class="tag">Goroutine</span>
-    <span class="tag">Async / Await</span>
-  </p>
+    <section id="veri-tabani">
+      <h2>SQL ve Veri Tabanı Ekosistemi</h2>
+      <p class="muted">Dil seçiminin yanında temel DB kası şart. Öne çıkanlar:</p>
+      <div class="grid">
+        <div class="card">
+          <h3>PostgreSQL</h3>
+          <p class="muted">Genel amaçlı, güçlü SQL özellikleri.</p>
+        </div>
+        <div class="card">
+          <h3>MySQL / MariaDB</h3>
+          <p class="muted">Yaygın, kolay barındırma, klasik LAMP mirası.</p>
+        </div>
+        <div class="card">
+          <h3>SQLite</h3>
+          <p class="muted">Gömülü, tek dosya, prototip ve edge senaryolar.</p>
+        </div>
+        <div class="card">
+          <h3>Redis</h3>
+          <p class="muted">In-memory cache ve queue işleri.</p>
+        </div>
+        <div class="card">
+          <h3>MongoDB</h3>
+          <p class="muted">NoSQL, esnek şema, doküman tabanlı.</p>
+        </div>
+      </div>
+    </section>
 
-  <h2>1. Programlama Dili Nedir? (Programming Language)</h2>
-  <p>
-    <strong>Programlama dili</strong>, bilgisayara ne yapacağını tarif etmek için
-    kullandığımız kurallı (syntax + semantics) yapıdır.
-  </p>
+    <section id="kavramlar">
+      <h2>Backend Temel Kavramları</h2>
+      <div class="grid">
+        <div class="card">
+          <h3>Request–Response Cycle</h3>
+          <p class="muted">Client → Server → DB → Server → Client akışını bil.</p>
+        </div>
+        <div class="card">
+          <h3>Routing</h3>
+          <p class="muted">URL → hangi handler çalışacak; REST/GraphQL entry noktası.</p>
+        </div>
+        <div class="card">
+          <h3>Middleware</h3>
+          <p class="muted">Auth, logging, rate limiting, error handler, session, body parser.</p>
+        </div>
+        <div class="card">
+          <h3>Controller / Handler</h3>
+          <p class="muted">İsteği alır, iş mantığını çalıştırır, yanıtı hazırlar.</p>
+        </div>
+        <div class="card">
+          <h3>ORM / Query Builder</h3>
+          <p class="muted">Tabloyu koda map eder. Örn: Prisma, Entity Framework, Django ORM, Eloquent, Hibernate, TypeORM.</p>
+        </div>
+        <div class="card">
+          <h3>API Türleri</h3>
+          <p class="muted">REST, GraphQL, gRPC, WebSocket → protokol ve veri modeli kararları.</p>
+        </div>
+        <div class="card">
+          <h3>I/O-bound vs CPU-bound</h3>
+          <p class="muted">I/O dış kaynağı bekler; CPU hesap yapar. Dil seçimi ve ölçek için kritik ayrım.</p>
+        </div>
+        <div class="card">
+          <h3>Concurrency</h3>
+          <p class="muted">Birden fazla işin ilerlemesi; event loop, goroutine, thread pool ile yönetilir.</p>
+        </div>
+        <div class="card">
+          <h3>Parallelism</h3>
+          <p class="muted">Gerçekten aynı anda çekirdeklerde çalışma; CPU-bound işleri hızlandırır.</p>
+        </div>
+        <div class="card">
+          <h3>Framework Mantığı</h3>
+          <p class="muted">Routing + middleware + controller + config + DI birleşimi.</p>
+        </div>
+        <div class="card">
+          <h3>Monolith vs Microservice</h3>
+          <p class="muted">Monolith = tek app; Microservice = küçük bağımsız servisler.</p>
+        </div>
+        <div class="card">
+          <h3>Scaling</h3>
+          <p class="muted">Vertical: CPU/RAM artır. Horizontal: yeni instance çoğalt.</p>
+        </div>
+        <div class="card">
+          <h3>Caching</h3>
+          <p class="muted">Redis, Memcached ile sıcak veriyi hızlandır.</p>
+        </div>
+        <div class="card">
+          <h3>Environment &amp; Config</h3>
+          <p class="muted">.env, secrets yönetimi, ortam bazlı config.</p>
+        </div>
+      </div>
+    </section>
 
-  <h3>1.1. Dil – Runtime – Framework farkı</h3>
-  <ul>
-    <li>
-      <strong>Dil (Language)</strong>: 
-      C#, Go, Java, JavaScript, Rust, Python, vb.
-      <br>
-      Kod yazdığın şey. Kurallar, tip sistemi, sözdizimi, kontrol yapıları.
-    </li>
-    <li>
-      <strong>Runtime</strong>:
-      Dilin çalıştığı ortam / sanal makine / engine.
+    <section id="haric">
+      <h2>Kapsama Girmeyenler</h2>
+      <p class="muted">Boğucu detaylar burada yok:</p>
       <ul>
-        <li>.NET → <code>CLR</code></li>
-        <li>Java → <code>JVM</code></li>
-        <li>Node.js → <code>V8 + event loop</code></li>
-        <li>Go → kendi runtime’ı (scheduler, GC, goroutine yönetimi)</li>
+        <li>Garbage collector derinliği, thread pool mimarisi</li>
+        <li>JIT/AOT farkı, memory modeli, assembly-level konular</li>
+        <li>Linux kernel scheduling, K8s deep dive</li>
+        <li>Reactive programming detayları, CAP theorem teknik analizi</li>
       </ul>
-    </li>
-    <li>
-      <strong>Framework</strong>:
-      Hazır iskelet + pattern + kütüphane seti.
-      <ul>
-        <li>.NET: ASP.NET Core, Minimal API, MVC</li>
-        <li>Node.js: Express, NestJS, Fastify</li>
-        <li>Go: Fiber, Gin, Echo</li>
-        <li>Java: Spring Boot, Micronaut</li>
-      </ul>
-    </li>
-    <li>
-      <strong>Library (Kütüphane)</strong>:
-      Framework kadar büyük olmayan, belirli işi çözen paket.
-      Örn: JWT kütüphanesi, logging kütüphanesi, HTTP client, vb.
-    </li>
-  </ul>
+    </section>
 
-  <h3>1.2. Derlenen vs yorumlanan (Compile vs Interpret)</h3>
-  <ul>
-    <li>
-      <strong>Derlenen diller</strong>: 
-      Go, Rust, C/C++, çoğu zaman C# ve Java da bu grupta (JIT/AOT).
-      <br>
-      Kod → derleyici → binary / bytecode → runtime’da çalışır.
-    </li>
-    <li>
-      <strong>Yorumlanan diller</strong>: 
-      JavaScript (tarayıcı), Python, Ruby vb.  
-      Genelde satır satır veya bytecode seviyesinde yorumlanır.
-    </li>
-  </ul>
-
-  <h3>1.3. Statik tip, dinamik tip (Static vs Dynamic Typing)</h3>
-  <ul>
-    <li><strong>Statik tipli</strong>: C#, Go, Rust, Java, Kotlin</li>
-    <li><strong>Dinamik tipli</strong>: JavaScript, Python, Ruby</li>
-    <li><strong>TypeScript</strong>: JavaScript’e statik tip katmanı</li>
-  </ul>
-
-  <div class="note">
-    Burayı genişletme fikri: 
-    “Niye statik tip tercih edilir?”, “Prod ortamda tip güvenliği neden önemli?”
+    <section id="not">
+      <h2>Not</h2>
+      <div class="callout">
+        Swift, Objective-C gibi diller backend dünyasının ana konseptine girmiyor; dokümana eklenmedi.
+      </div>
+    </section>
   </div>
-
-  <h2>2. Backend’te İş Yükü Tipleri: I/O-bound vs CPU-bound</h2>
-
-  <h3>2.1. I/O-bound nedir?</h3>
-  <p>
-    Programın çoğu zamanı CPU’da işlem yaparak değil, 
-    <strong>I/O (Input/Output)</strong> bekleyerek geçiyorsa,
-    bu iş yüküne <strong>I/O-bound</strong> denir.
-  </p>
-  <ul>
-    <li>Veritabanı sorgusu beklemek</li>
-    <li>Dosya okuma/yazma</li>
-    <li>HTTP isteği atıp cevap beklemek</li>
-    <li>Mesaj kuyruğundan (RabbitMQ, Kafka) mesaj beklemek</li>
-  </ul>
-
-  <h3>2.2. CPU-bound nedir?</h3>
-  <p>
-    Programın çoğu zamanı doğrudan CPU üzerinde ağır hesap yaparak geçiyorsa,
-    bu iş yüküne <strong>CPU-bound</strong> denir.
-  </p>
-  <ul>
-    <li>Büyük döngüler (milyonlarca iterasyon)</li>
-    <li>Kriptografi, şifreleme, hashing</li>
-    <li>Görüntü / video işleme</li>
-    <li>Büyük veriler üzerinde yoğun matematiksel işlem</li>
-  </ul>
-
-  <div class="note">
-    Önemli nokta:  
-    Node.js → I/O-bound için ideal, CPU-bound için problemli.  
-    Go / .NET / Java / Rust → CPU + I/O karışık iş yüklerinde daha dengeli.
-  </div>
-
-  <h2>3. Concurrency ve Parallelism</h2>
-
-  <h3>3.1. Concurrency (Eşzamanlılık)</h3>
-  <p>
-    <strong>Concurrency</strong> = Aynı anda birden fazla işin 
-    ilerliyor gibi yönetilmesi.  
-    Tek CPU çekirdeğinde bile, işler arasında hızlı geçiş yaparak
-    “aynı anda” çalışıyor hissi verir.
-  </p>
-
-  <h3>3.2. Parallelism (Paralellik)</h3>
-  <p>
-    <strong>Parallelism</strong> = Gerçekten aynı anda birden fazla çekirdekte 
-    gerçekten fiziksel olarak aynı anda işlem yapılması.
-  </p>
-
-  <h3>3.3. Thread Nedir?</h3>
-  <p>
-    <strong>Thread</strong>:
-    Bir işlem (process) içinde çalışan hafif yürütme birimidir.
-  </p>
-  <ul>
-    <li>Java / .NET → Thread pool, task, async-await, vb.</li>
-    <li>Go → Goroutines (thread’lerden bile daha hafif logical unit)</li>
-    <li>Rust → OS thread + async runtime (tokio vs.)</li>
-  </ul>
-
-  <h3>3.4. Event Loop Nedir? (Node.js Modeli)</h3>
-  <p>
-    <strong>Event loop</strong>, Node.js gibi ortamlarda kullanılan modeldir:
-  </p>
-  <ul>
-    <li>Tek bir ana thread üzerinde çalışır (single-threaded).</li>
-    <li>
-      I/O işleri (disk, ağ, DB) mümkün olduğu kadar OS’in async mekanizmalarına
-      offload edilir.
-    </li>
-    <li>
-      İşler küçük callback / promise / async fonksiyonlar olarak kuyruğa alınır,
-      event loop bu kuyruğu sürekli döner.
-    </li>
-  </ul>
-  <p>
-    Sorun: CPU-bound bir iş event loop’u bloke ederse, 
-    sistemdeki diğer istekler beklemeye başlar.
-  </p>
-
-  <h3>3.5. Go’daki Goroutine Modeli</h3>
-  <p>
-    Go, concurrency için <strong>goroutine</strong> ve 
-    <strong>scheduler</strong> kullanır:
-  </p>
-  <ul>
-    <li>Goroutine = çok hafif thread benzeri iş birimi</li>
-    <li>OS thread’lerinin üzerinde çalışırlar</li>
-    <li>Go runtime, goroutine’leri thread’lere dağıtır</li>
-    <li>Yüzbinlerce goroutine ölçeklenebilir</li>
-  </ul>
-
-  <h3>3.6. .NET / Java Concurrency Modeli</h3>
-  <p>
-    .NET ve Java tipik olarak şu kavramlarla çalışır:</p>
-  <ul>
-    <li>Thread pool</li>
-    <li>Task (C#), Future/CompletableFuture (Java)</li>
-    <li>async/await (C#), reactive pattern’ler (Project Reactor vb.)</li>
-  </ul>
-
-  <div class="note">
-    Genişletme fikri:  
-    “Thread pool nasıl çalışır?”  
-    “Async/await alt tarafta ne yapıyor?”  
-  </div>
-
-  <h2>4. API, Web Backend ve Request Lifecycle</h2>
-
-  <h3>4.1. API (Application Programming Interface)</h3>
-  <p>
-    <strong>API</strong> = Uygulamaların birbiri ile konuştuğu sözleşmedir.  
-    Backend tarafında en yaygın format: HTTP üzerinden REST / JSON veya gRPC.
-  </p>
-
-  <h3>4.2. Tipik Web API Akışı</h3>
-  <ol>
-    <li>Client (web / mobil / başka servis) HTTP isteği gönderir</li>
-    <li>Reverse proxy / load balancer isteği ilgili backend instance’a iletir</li>
-    <li>Backend framework (ASP.NET Core, Express, Fiber vb.) isteği route eder</li>
-    <li>Controller / handler iş mantığını çalıştırır</li>
-    <li>DB / cache / queue çağrıları yapılır (I/O-bound işler)</li>
-    <li>Sonuç JSON / XML / Protobuf vb. formatta client’a döner</li>
-  </ol>
-
-  <h3>4.3. Framework’lerin Temel Rolü</h3>
-  <ul>
-    <li>Routing (URL → handler eşleştirme)</li>
-    <li>Middleware pipeline (auth, logging, rate limiting vb.)</li>
-    <li>Model binding / validation</li>
-    <li>Response serialization (JSON vs.)</li>
-    <li>DI (Dependency Injection) ve konfigurasyon yönetimi</li>
-  </ul>
-
-  <h2>5. Dillerin ve Stack’lerin Konumlanması</h2>
-
-  <h3>5.1. Node.js (JavaScript / TypeScript)</h3>
-  <ul>
-    <li>Model: Single-thread + event loop</li>
-    <li>Güçlü olduğu yer: I/O-heavy web API, realtime (WebSocket)</li>
-    <li>Zayıf olduğu yer: CPU-bound ağır işlemler</li>
-    <li>Avantaj: JS/TS ile hızlı ürün geliştirme, büyük ekosistem</li>
-  </ul>
-
-  <h3>5.2. Go (Golang)</h3>
-  <ul>
-    <li>Model: Goroutine + scheduler (yüksek concurrency)</li>
-    <li>Güçlü olduğu yer: yüksek trafikli servisler, cloud-native, DevOps tooling</li>
-    <li>Avantaj: Tek binary, basit dil, hafif runtime</li>
-    <li>Framework örnekleri: Fiber, Gin, Echo</li>
-  </ul>
-
-  <h3>5.3. .NET (C# / ASP.NET Core)</h3>
-  <ul>
-    <li>Model: Multi-thread, thread pool, async/await</li>
-    <li>Güçlü olduğu yer: kurumsal projeler, büyük backend’ler, microservice + monolith</li>
-    <li>Avantaj: Zengin framework, güçlü tooling, enterprise desteği</li>
-  </ul>
-
-  <h3>5.4. Rust</h3>
-  <ul>
-    <li>Model: Zero-cost abstraction, ownership, borrow checker</li>
-    <li>Güçlü olduğu yer: high-performance server, sistem programlama</li>
-    <li>Avantaj: C performansı + memory safety</li>
-    <li>Eksisi: Öğrenme eğrisi dik</li>
-  </ul>
-
-  <h2>6. Dil/Stack Seçiminde Kriterler</h2>
-  <p>Backend teknolojisi seçerken bakılacak temel eksenler:</p>
-  <ul>
-    <li><strong>İş yükü tipi</strong>: I/O-heavy mi, CPU-heavy mi?</li>
-    <li><strong>Ölçek</strong>: Kaç request / saniye, nasıl büyüyecek?</li>
-    <li><strong>Ekip yetkinliği</strong>: Kim neyi biliyor?</li>
-    <li><strong>Ekosistem ihtiyacı</strong>: AI, data, web, mobile vs.</li>
-    <li><strong>Bakım maliyeti</strong>: 3 yıl sonra da yönetilebilir mi?</li>
-  </ul>
-
-  <h3>6.1. Tipik Senaryo Özetleri</h3>
-  <ul>
-    <li>
-      <strong>Hızlı ürün çıkarmak (SaaS, dashboard)</strong>:
-      Node.js + TypeScript + modern frontend (Next.js vb.)
-    </li>
-    <li>
-      <strong>Kurumsal, uzun ömürlü backend</strong>:
-      C# / ASP.NET Core veya Java / Spring Boot
-    </li>
-    <li>
-      <strong>Cloud-native, yüksek concurrency servisleri</strong>:
-      Go (Golang) + container + K8s
-    </li>
-    <li>
-      <strong>Aşırı performans kritik, low-level işler</strong>:
-      Rust
-    </li>
-  </ul>
-
-  <h2>7. Genişletme İçin Boş Alanlar</h2>
-  <p>
-    Bu başlıklar, daha sonra Codex veya başka bir araç kullanarak
-    detay açmak için bırakıldı.
-  </p>
-
-  <h3>7.1. Önerilen Alt Başlıklar</h3>
-  <ul>
-    <li>Thread pool nasıl çalışır? (C#, Java)</li>
-    <li>Garbage Collector nedir, dil tasarımını nasıl etkiler?</li>
-    <li>Monolith vs Microservice → Dil ve framework tercihine etkisi</li>
-    <li>API Gateway, Reverse Proxy, Load Balancer kavramları</li>
-    <li>gRPC vs REST karşılaştırması</li>
-    <li>Logging, Observability (metrics, tracing) ve dil seçimi</li>
-  </ul>
-
-  <p style="margin-top:3rem; font-size:0.85rem; color:#666;">
-    Not: Bu dosya bir “iskelet” olarak tasarlandı. 
-    Her bölümün altına kendi notlarını, örneklerini, diyagram linklerini ekleyebilirsin.
-  </p>
-
 </body>
 </html>
-
