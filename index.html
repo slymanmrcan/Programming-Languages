@@ -395,6 +395,60 @@
         Swift, Objective-C gibi diller backend dünyasının ana konseptine girmiyor; dokümana eklenmedi.
       </div>
     </section>
+
+    <section id="teknik-kavramlar">
+      <h2>Teknik Kavramlar (Mühendis Seviyesi)</h2>
+      <div class="grid">
+        <div class="card">
+          <h3>CPU-bound</h3>
+          <p class="muted">CPU-bound iş yükü, sürenin çoğunu işlemci hesaplamalarında harcayan, I/O beklemeyen görevlerdir. Bu tür işlerde performans, çekirdek sayısı, saat hızı ve SIMD gibi CPU özelliklerine bağlıdır. Paralelleştirme yapılmadıysa tek çekirdek hızının tavanı belirler; algoritma karmaşıklığı kritik hale gelir. Dil/runtime’ın scheduler ve thread modeli, CPU-bound işin ölçeklenebilirliğini doğrudan etkiler. Profiling ve hot path optimizasyonu bu iş yüklerinde en yüksek getiriyi sağlar.</p>
+        </div>
+        <div class="card">
+          <h3>I/O-bound</h3>
+          <p class="muted">I/O-bound iş yükü, zamanın çoğunu disk, ağ, DB veya diğer harici kaynakları bekleyerek geçirir. Burada darboğaz CPU değil, gecikmesi yüksek olan I/O operasyonlarıdır. Async/event-driven modeller bu bekleme sürelerini overlap ederek throughput’u yükseltir. Connection pooling, batching ve caching I/O-bound sistemleri iyileştirir. Kuyruklar ve backpressure mekanizmaları I/O beklerken sistemi dengede tutar.</p>
+        </div>
+        <div class="card">
+          <h3>CPU’nun Programlama Dillerinde Kullanımı (Threading Modeli)</h3>
+          <p class="muted">Programlama dilleri CPU’yu OS threadleri veya kullanıcı seviyesi lightweight threadler üzerinden kullanır. C#, Java ve benzeri dillerde OS threadleri bir thread pool ile yönetilir; her thread doğrudan çekirdek zamanlayıcısına bağlanır. Node.js tek ana thread üstünde event loop çalıştırır, CPU işleri için worker thread pool’a offload eder. Go’da goroutine’ler kullanıcı seviyesi scheduler ile az sayıda OS threadine dağıtılır; M:N modeli CPU’yu verimli kullanır. Scheduler’ın work-stealing ve load balancing stratejisi CPU çekirdeklerinin doluluk oranını belirler.</p>
+        </div>
+        <div class="card">
+          <h3>RAM Kullanımı (Heap, Stack, GC)</h3>
+          <p class="muted">Stack, fonksiyon çağrılarının lokal değişkenleri ve dönüş adresleri için ayrılmış, LIFO düzenli hızlı bellek alanıdır. Heap, dinamik ömrü olan nesneler için kullanılır; fragmentasyon ve tahsis maliyeti stack’ten yüksektir. GC’li dillerde heap nesneleri işaretleme-süpürme veya kopyalama gibi algoritmalarla otomatik temizlenir; GC duraklamaları latency’yi etkiler. Rust/C++ gibi manuel/ownership tabanlı dillerde geliştirici yaşam döngüsünü belirler; hatalar double free veya leak’e yol açabilir. Arena/stack allocation gibi stratejiler heap baskısını azaltıp cache locality’yi iyileştirir.</p>
+        </div>
+        <div class="card">
+          <h3>Concurrency</h3>
+          <p class="muted">Concurrency, birden fazla iş biriminin zaman dilimleri paylaşarak ilerlemesidir; aynı anda başlamış gibi görünür, paralellik şart değildir. Amaç throughput’u ve kaynak kullanımını yükseltmektir; scheduler işler arasında geçiş yapar. Ortak state varsa race condition, deadlock, starvation riskleri doğar; lock, mutex, semaphore veya mesaj geçirme ile kontrol edilir. Dil ve runtime, concurrency primitifleri (goroutine, async/await, futures) ve memory modeli ile bu güvenliği tanımlar. Doğru tasarım, izolasyon ve immutable veri ile contention’ı minimize eder.</p>
+        </div>
+        <div class="card">
+          <h3>Parallelism</h3>
+          <p class="muted">Parallelism, birden fazla çekirdekte gerçekten aynı anda çalışmadır; CPU-bound işleri hızlandırmak için kullanılır. Görevler bölünebilir olmalı; veri bağımlılıkları veya paylaşılan kilitler hız kazancını yok edebilir. SIMD/SIMT veya çok çekirdek kullanımı paralelliğin donanım katmanlarıdır. Work stealing ve load balancing, çekirdekler arasında iş dağıtımını optimize eder. Amdahl ve Gustafson yasaları, paralelliğin teorik sınırlarını özetler.</p>
+        </div>
+        <div class="card">
+          <h3>Blocking vs Non-blocking</h3>
+          <p class="muted">Blocking çağrıda thread, I/O tamamlanana kadar durur; thread havuzu dar ise throughput düşer. Non-blocking çağrıda I/O başlatılır, tamamlanınca callback/promise/future ile sonuç gelir; thread beklemez. Event-driven sunucular non-blocking I/O ile daha az thread ile daha çok bağlantı tutar. CPU-bound işleri non-blocking modelde de offload etmek gerekir, aksi halde event loop tıkanır. Doğru backpressure olmadan non-blocking sistemler de aşırı yükte boğulabilir.</p>
+        </div>
+        <div class="card">
+          <h3>Throughput vs Latency</h3>
+          <p class="muted">Throughput, birim zamanda tamamlanan iş miktarıdır; RPS veya TPS ile ölçülür. Latency, tek bir isteğin tamamlanma süresidir; p50/p95/p99 değerleri önemlidir. Yüksek throughput optimizasyonu genellikle batching, queueing, non-blocking I/O ile yapılır. Düşük latency için kuyruk derinliğini sınırlamak, GC duraklarını azaltmak ve sıcak cache kullanmak gerekir. Sistem tasarımında bu iki metrik çoğu zaman gerilim içindedir; hedefe göre trade-off yapılır.</p>
+        </div>
+        <div class="card">
+          <h3>Synchronous vs Asynchronous</h3>
+          <p class="muted">Synchronous modelde iş çağrısı sonuçlanana kadar akış bekler; kontrol akışı daha basittir. Asynchronous modelde çağrı tetiklenir, sonuç hazır olunca callback/promise/await ile devam edilir. I/O-bound sistemlerde async, aynı thread ile daha fazla bekleyen işi yöneterek kaynak verimliliği sağlar. CPU-bound işlerde async tek başına hız kazandırmaz; paralel yürütme veya offload gerekir. Hata ve kontrol akışı yönetimi async yapılarda daha karmaşıktır; structured concurrency bunu sadeleştirmeyi hedefler.</p>
+        </div>
+        <div class="card">
+          <h3>Event Loop (Node.js)</h3>
+          <p class="muted">Node.js event loop’u tek ana thread üzerinde çalışır ve iş kuyruğunu sürekli döner. I/O işlemleri OS’ye offload edilir, tamamlanınca callback/promise microtask/macro task kuyruklarına eklenir. CPU-bound işler ana thread’de yürürse loop bloklanır ve tüm isteklerin latency’si artar. Ağır işleri worker_threads veya ayrı servislere taşımak, event loop’u I/O koordinatörü olarak tutar. Libuv, timer, I/O poll, check gibi fazlarla loop’un adımlarını yönetir.</p>
+        </div>
+        <div class="card">
+          <h3>Goroutine Scheduler (Go)</h3>
+          <p class="muted">Go, M:N modeliyle binlerce goroutine’i az sayıda OS threadine dağıtır. Scheduler, work stealing yaparak runnable queue’lardan işleri çekirdekler arası dengeler. Syscall veya uzun bloklamada goroutine park edilir, başka bir goroutine aynı OS thread’inde çalıştırılır. GOMAXPROCS, aynı anda kaç OS thread’inin CPU üzerinde koşacağını sınırlar. Preemptive scheduling sayesinde uzun süren goroutine’ler diğerlerini aç bırakmaz.</p>
+        </div>
+        <div class="card">
+          <h3>Thread Pool (C#, Java)</h3>
+          <p class="muted">C# ve Java’da thread pool, yeniden kullanılabilir OS thread’leriyle görev kuyruğunu tüketir. Pool, minimum ve maksimum thread sayısı, bekleme kuyrukları ve work stealing stratejileriyle ayarlanır. I/O-bound async modellerinde thread bloklamayı azaltmak için async/await veya CompletableFuture kullanılır. CPU-bound işler için Task/Executor üstünde paralel iş dağıtılır; fazla thread oversubscription’a ve context switch yüküne yol açar. Pool’un metriklerini (queue depth, active threads) izlemek tuning için şarttır.</p>
+        </div>
+      </div>
+    </section>
   </div>
 </body>
 </html>
