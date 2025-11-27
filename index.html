@@ -163,9 +163,31 @@
       padding-left: 0.75rem;
       color: var(--muted);
     }
+
+    .to-top {
+      position: fixed;
+      right: 1.25rem;
+      bottom: 1.25rem;
+      padding: 0.65rem 0.95rem;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: var(--panel);
+      color: var(--text);
+      text-decoration: none;
+      font-weight: 700;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+      transition: all 120ms ease;
+      z-index: 20;
+    }
+
+    .to-top:hover {
+      border-color: var(--accent);
+      color: #0f172a;
+      background: var(--accent);
+    }
   </style>
 </head>
-<body>
+<body id="top">
   <div class="shell">
     <header>
       <h1>Backend Hızlı Rehber</h1>
@@ -665,5 +687,6 @@
       </div>
     </section>
   </div>
+  <a class="to-top" href="#top" aria-label="Başa dön">Yukarı ↑</a>
 </body>
 </html>
