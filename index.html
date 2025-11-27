@@ -378,6 +378,221 @@
       </div>
     </section>
 
+    <section id="kavram-dokumani">
+      <h2>Backend Temel Kavram Dokümanı</h2>
+      <div class="grid">
+        <div class="card">
+          <h3>Request–Response Cycle</h3>
+          <p class="muted">Bir HTTP isteği client’tan çıkar, reverse proxy/load balancer üzerinden backend’e gelir, route edilir, handler iş mantığını çalıştırır, DB/cache/queue çağrıları yapılır ve yanıt geri döner. Bu akışta gecikme yaratan her katman latency’yi belirler. İzleme için distributed tracing ve log korelasyonu şarttır.</p>
+        </div>
+        <div class="card">
+          <h3>Routing</h3>
+          <p class="muted">Routing, gelen URL ve HTTP metodunu doğru handler’a eşler. Versiyonlama (v1/v2) ve auth gerektiren yollar için ayrı kurallar tanımlanır. Performans için statik rota tabloları ve prefix-matching kullanılır.</p>
+        </div>
+        <div class="card">
+          <h3>Middleware</h3>
+          <p class="muted">Middleware zinciri, istek-response hattına araya giren fonksiyonlardan oluşur. Auth, logging, rate limit, error handler, body parser gibi ortak işler burada çözülür. Sıralama önemlidir; örneğin logging ve error handler’ın en dışta olması hataları yakalamayı kolaylaştırır.</p>
+        </div>
+        <div class="card">
+          <h3>Controller / Handler</h3>
+          <p class="muted">Controller, route edilen isteği alır, doğrulama ve iş mantığını çalıştırır, yanıtı hazırlar. İnce controller, servis katmanına delegasyon ve DTO/response modelleri ile okunabilirlik artar. Hata yönetimi ve input sanitization burada netleştirilmelidir.</p>
+        </div>
+        <div class="card">
+          <h3>ORM / Query Builder</h3>
+          <p class="muted">ORM, tabloyu kod nesnelerine map eder; Query Builder ise SQL’i programatik olarak kurar. Avantajı tip güvenliği, migration desteği ve daha az boilerplate’dir. Dezavantajı karmaşık sorgularda optimizasyon kısıtı ve runtime overhead’idir.</p>
+        </div>
+        <div class="card">
+          <h3>API türleri (REST, GraphQL, gRPC, WebSocket)</h3>
+          <p class="muted">REST kaynak odaklı ve HTTP semantiğine dayanır; geniş uyumluluk sunar. GraphQL tek endpoint ile esnek sorgu yapar, over/under-fetch sorunlarını azaltır. gRPC, Protobuf ile sözleşmeli ve hızlıdır; servisler arası iletişimde güçlüdür. WebSocket, çift yönlü realtime iletişim sağlar.</p>
+        </div>
+        <div class="card">
+          <h3>Monolith vs Microservice</h3>
+          <p class="muted">Monolith tek deployable’dır, başlangıçta hızlıdır ve basit transaction sınırlarına sahiptir. Microservice, domainleri ayırır, bağımsız ölçeklenir ve farklı teknoloji kullanabilir. Buna karşın dağıtık karmaşıklık, observability ve veri tutarlılığı yükü artar.</p>
+        </div>
+        <div class="card">
+          <h3>Scaling (Vertical vs Horizontal)</h3>
+          <p class="muted">Vertical scaling donanımı büyütür (CPU/RAM), uygulama değişmeden kapasite artar; tavanı donanım sınırı belirler. Horizontal scaling yeni instance ekleyerek yükü böler, load balancer ve stateless tasarım gerektirir. Durumlu bileşenler için sharding veya sticky session stratejileri gerekir.</p>
+        </div>
+        <div class="card">
+          <h3>Caching (Redis, Memcached)</h3>
+          <p class="muted">Cache, sıcak veriyi RAM’de tutarak latency ve DB yükünü düşürür. Redis ve Memcached yüksek performanslı in-memory cache seçenekleridir; Redis ayrıca TTL, pub/sub ve veri yapıları sunar. Cache key tasarımı, TTL ve invalidation stratejisi hatasız çalışmanın temelidir.</p>
+        </div>
+        <div class="card">
+          <h3>Environment &amp; Config</h3>
+          <p class="muted">Uygulama ayarları ortam (dev/stage/prod) bazında ayrılır ve .env veya secrets store üzerinden yönetilir. Config-in-code yerine environment-driven yapı 12-factor uyumunu sağlar. Gizli bilgiler (API key, DB parolası) şifrelenmiş ya da secret manager ile tutulmalıdır.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="dil-eko-ozet">
+      <h2>Diller ve Ekosistem Özetleri</h2>
+      <div class="grid">
+        <div class="card">
+          <h3>JavaScript / Node.js</h3>
+          <p class="muted">Node.js, V8 üstünde event loop ile çalışan tek thread’li ama I/O için non-blocking modeli olan bir runtime’dır. NPM ekosistemi binlerce paketle hızlı prototip ve üretim API’leri kurmayı sağlar. Realtime işler ve I/O-heavy API’lerde parlarken, CPU-bound işlerde worker thread veya ayrı servis gerekir. Express, Fastify, NestJS gibi framework’ler routing ve middleware iskeleti sunar.</p>
+        </div>
+        <div class="card">
+          <h3>TypeScript</h3>
+          <p class="muted">TypeScript, JavaScript’e statik tip katmanı ekleyerek refactor güvenliğini ve IDE desteğini güçlendirir. Derleme aşamasında tip hatalarını yakalar, runtime davranışı JS ile aynıdır. Büyük kod tabanlarında sözleşmeleri netleştirir ve ekip içi üretkenliği artırır. Node ekosistemindeki popüler paketlerin çoğunun tip tanımları mevcuttur.</p>
+        </div>
+        <div class="card">
+          <h3>Golang (Go)</h3>
+          <p class="muted">Go, basit syntax, statik tip ve yerleşik goroutine/scheduler ile yüksek concurrency sunar. Tek binary üretir, container ve bulut ortamlarında dağıtımı kolaydır. Standart kütüphanesi güçlü HTTP, profiling ve tooling desteği verir; bağımlılık grafiği nispeten hafiftir. Microservice, network araçları ve CLI’lar için tercih edilir.</p>
+        </div>
+        <div class="card">
+          <h3>C# / .NET Core</h3>
+          <p class="muted">.NET Core (şimdi .NET), cross-platform çalışan güçlü bir runtime ve kapsamlı sınıf kütüphanesidir. C# async/await, LINQ, generics ile olgun bir dil; ASP.NET Core web API’ler için performanslı bir pipeline sağlar. Tooling (Visual Studio, Rider, CLI) ve NuGet ekosistemi üretkenliği destekler. Kurumsal uygulamalar, yüksek trafikli API’ler ve bulut servisleri için sık seçilir.</p>
+        </div>
+        <div class="card">
+          <h3>Python</h3>
+          <p class="muted">Python, dinamik tipli ve okunabilir syntax’ıyla hızlı geliştirme sağlar; Flask ve FastAPI hafif web API’leri için öne çıkar. Veri bilimi ve ML ekosistemi (NumPy, Pandas, PyTorch) ile aynı dilde servis ve model barındırmayı kolaylaştırır. GIL sebebiyle CPU-bound işlerde sınırlıdır, ancak I/O-bound async kullanımda verimlidir. Performans kritik yerler için C uzantıları veya ayrı servisler kullanılır.</p>
+        </div>
+        <div class="card">
+          <h3>PHP</h3>
+          <p class="muted">PHP, özellikle Laravel ekosistemiyle hızlı CRUD ve monolith web uygulamaları geliştirmede yaygındır. Paylaşımlı hosting ve FPM/Nginx gibi kurulumlarla dağıtımı basittir. Modern sürümler tip ipuçları ve performans iyileştirmeleri getirerek olgunlaşmıştır. Queue, cache ve opcache ayarları yüksek trafik altında kritik rol oynar.</p>
+        </div>
+        <div class="card">
+          <h3>Ruby</h3>
+          <p class="muted">Ruby, ifade gücü yüksek, dinamik tipli bir dildir; Rails “convention over configuration” yaklaşımıyla hızlı ürün çıkarmayı sağlar. Rails ekosistemi CRUD, auth, background job (Sidekiq) gibi kalıpları yerleşik sunar. Yüksek trafikte ölçeklemek için cache, job queue ve çoklu process (Puma/Unicorn) stratejileri gerekir. Topluluk odaklı gem ekosistemi zengindir.</p>
+        </div>
+        <div class="card">
+          <h3>Elixir</h3>
+          <p class="muted">Elixir, BEAM VM üzerinde çalışan fonksiyonel bir dildir; hafif process’ler ve fault-tolerance ile tanınır. Phoenix framework’ü realtime (Channels) ve yüksek concurrency gerektiren uygulamalarda güçlüdür. Hot code upgrade ve dağıtık özellikler Erlang mirasından gelir. Ekosistem niş olsa da üretim güvenilirliği ve dayanıklılığı yüksektir.</p>
+        </div>
+        <div class="card">
+          <h3>Kotlin</h3>
+          <p class="muted">Kotlin, JVM üzerinde modern bir dil olup null-safety, coroutines ve concise syntax sunar. Spring Boot ile tam uyumlu, Ktor ile hafif API’ler geliştirilebilir. Android ve backend’i aynı dilde tutarak ekip verimliliği sağlar. JVM tuning bilgisi ve Gradle/Build cache optimizasyonu büyük projelerde önemlidir.</p>
+        </div>
+        <div class="card">
+          <h3>SQL veritabanları (PostgreSQL, MySQL, SQLite)</h3>
+          <p class="muted">PostgreSQL güçlü SQL özellikleri, JSONB ve extension desteğiyle genel amaçlı varsayılan tercihtir. MySQL/MariaDB yaygın barındırma ve basit kurulum avantajına sahiptir, LAMP mirası güçlüdür. SQLite tek dosyalı gömülü yapısıyla edge, mobil ve prototip senaryolarında kullanılır. ACID, transaction ve schema disiplini bu ailede belirgindir.</p>
+        </div>
+        <div class="card">
+          <h3>NoSQL veritabanları (MongoDB, Redis)</h3>
+          <p class="muted">MongoDB doküman tabanlı esnek şemasıyla hızlı iterasyon sağlar, fakat index ve şema disiplini ihmal edilirse teknik borç büyür. Redis in-memory hız, TTL, pub/sub ve veri yapılarıyla cache, rate limit ve queue kullanımında öne çıkar. NoSQL seçiminde tutarlılık modeli, sorgu kalıpları ve veri erişim şekli kritik belirleyicidir. Genellikle SQL ile birlikte polyglot persistence stratejisinin parçası olur.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="db-kavramlar">
+      <h2>Veritabanı Kavramları (Mühendis Seviyesi)</h2>
+      <div class="grid">
+        <div class="card">
+          <h3>Relational vs NoSQL mantığı</h3>
+          <p class="muted">Relational modeller, katı şema, normalizasyon ve güçlü join desteğiyle ACID odaklıdır; veri tutarlılığı ve sorgu ifadesi zengindir. NoSQL, şema esnekliği, yatay ölçek ve belirli erişim desenlerine (doküman, key-value, columnar, graph) optimize edilmiş yapılar sunar. Relational sistemler kompleks join’ler ve transaction’larda üstündür; NoSQL yüksek yazma/okuma hacmi ve esnek veri için tercih edilir. Polyglot yaklaşımda her veri tipi için uygun model seçilir.</p>
+        </div>
+        <div class="card">
+          <h3>Primary key, foreign key</h3>
+          <p class="muted">Primary key, tablo satırlarını benzersiz tanımlayan ve çoğunlukla indexlenen alandır; arama ve referans için temel anchor’dır. Foreign key, bir tablodaki değeri başka tablonun primary key’ine bağlayarak referential integrity sağlar. Foreign key kısıtları silme/güncelleme kurallarını (CASCADE/RESTRICT) enforce eder. Doğru PK/FK tasarımı veri tutarlılığını korur ve join performansını belirler.</p>
+        </div>
+        <div class="card">
+          <h3>Index ve Index çeşitleri (B-Tree, Hash)</h3>
+          <p class="muted">Index, tablo verisine ikincil bir veri yapısı ekleyerek arama ve sıralamayı hızlandırır; yazma maliyeti ve disk alanı artırır. B-Tree index, aralık sorguları, sıralı taramalar ve karşılaştırma operatörlerinde etkilidir. Hash index, eşitlik tabanlı aramalarda hızlıdır ancak aralık sorgularında kullanılamaz. Doğru kolon seçimi, kardinalite ve sorgu kalıbına göre index türü belirlenir.</p>
+        </div>
+        <div class="card">
+          <h3>Query plan nedir? EXPLAIN mantığı</h3>
+          <p class="muted">Query plan, optimizer’ın bir SQL sorgusunu nasıl yürüteceğini (scan türü, join sırası, index kullanımı, maliyet) gösteren plandır. EXPLAIN/EXPLAIN ANALYZE çıktısı tablo taraması, index taraması, join tipi ve tahmini/gerçek satır sayısını açıklar. Plan incelemesi, eksik index, yanlış selectivity tahmini veya gereksiz sort/aggregate adımlarını bulmayı sağlar. Optimize etmek için sorgu yeniden yazımı, index ekleme ya da istatistik güncelleme yapılır.</p>
+        </div>
+        <div class="card">
+          <h3>ACID nedir?</h3>
+          <p class="muted">ACID, Atomicity, Consistency, Isolation, Durability ilkelerinin kısaltmasıdır ve transaction davranışını tanımlar. Atomicity işlemin tamamının uygulanması ya da hiç uygulanmaması garantisidir. Isolation, eşzamanlı işlemlerin birbirini bozmasını engeller; seviyeler (Read Committed, Repeatable Read, Serializable) farklı teminatlar sağlar. Durability, commit sonrası verinin kalıcı depolamaya yazılmasıyla kaybı önler; WAL/redo log bu garantiyi destekler.</p>
+        </div>
+        <div class="card">
+          <h3>Transactions</h3>
+          <p class="muted">Transaction, bir veya daha fazla veritabanı işlemini tek mantıksal bütünlük içinde çalıştıran yapıdır. Commit edildiğinde ACID garantileriyle kalıcı hale gelir, rollback ile tüm değişiklikler geri alınır. Transaction sınırları doğru çizilmezse kilitlenme, uzun bekleme veya gereksiz contention oluşur. Isolation seviyesi seçimi hem tutarlılık hem performansı etkiler.</p>
+        </div>
+        <div class="card">
+          <h3>Joins (inner, left, right)</h3>
+          <p class="muted">Inner join, her iki tabloda eşleşen kayıtları döndürür; eşleşmeyenler elenir. Left join, sol tablodaki tüm satırları ve sağdaki eşleşenleri verir; eşleşmeyen sağ alanlar NULL olur. Right join bunun simetriğidir; bazı sistemlerde daha az kullanılır. Join performansı, join kolonlarındaki index ve join sırası/planı ile belirlenir.</p>
+        </div>
+        <div class="card">
+          <h3>N+1 problemi</h3>
+          <p class="muted">N+1 problemi, bir ana sorgu sonrası her satır için ek sorgu çalıştırılmasıyla toplam sorgu sayısının patlamasıdır. ORM’lerde lazy loading ilişkiler bu durumu sıkça tetikler. Çözüm olarak eager loading, join ile tek seferde çekme veya toplu fetch stratejileri kullanılır. Bu problem latency ve DB yükünü dramatik şekilde artırabilir.</p>
+        </div>
+        <div class="card">
+          <h3>Database connection pool</h3>
+          <p class="muted">Connection pool, veritabanı bağlantılarını yeniden kullanarak açma/kapama maliyetini düşüren havuz yapısıdır. Maksimum/minimum bağlantı sayısı, idle ve lifetime ayarları, DB ve uygulama kapasitesine göre ayarlanır. Pool kıtlığı yüksek latency’ye, aşırı pool ise DB’nin connection limitine çarpıp hataya yol açar. Health check ve circuit breaker ile havuzdaki bozuk bağlantılar temizlenmelidir.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="dagitik-perf">
+      <h2>Dağıtık Sistem ve Performans Bileşenleri</h2>
+      <div class="grid">
+        <div class="card">
+          <h3>Cache mantığı ve invalidation</h3>
+          <p class="muted">Cache, pahalı hesaplanan veya sık okunan veriyi RAM’de saklayarak latency ve backend yükünü düşürür. Cache hit oranı performansı belirler; miss durumunda backend’e gidilir. Invalidation en zor kısımdır: TTL ile zaman temelli, yazma sonrası aktif silme veya versiyonlama/namespace ile yapılabilir. Yanlış veya geç invalidation tutarsız veri döndürmeye sebep olur.</p>
+        </div>
+        <div class="card">
+          <h3>Redis nedir? (memory-based key-value store)</h3>
+          <p class="muted">Redis, RAM üzerinde çalışan key-value store’dur; string, list, set, sorted set gibi veri yapıları sağlar. TTL, pub/sub, stream, Lua script ve atomic counter desteğiyle cache, rate limit, queue ve oturum saklama için kullanılır. Persistence için RDB/AOF modları bulunur; RAM kapasitesi ve eviction politikası ayarlanmalıdır. Tek thread’li olsa da I/O multiplexing sayesinde çok bağlantıyı düşük latency ile yönetir.</p>
+        </div>
+        <div class="card">
+          <h3>Message Queue nedir? (RabbitMQ, Kafka)</h3>
+          <p class="muted">Message queue, üretici ve tüketiciyi ayırarak asenkron iletişim sağlayan bileşendir. RabbitMQ klasik queue/ack modeliyle iş teslimini garantilerken, Kafka append-only log yapısıyla yüksek throughput ve stream işleme odaklıdır. Kuyruklar backpressure ve yeniden deneme (retry/dead-letter) mekanizmalarıyla yük dalgalanmalarını dengeler. Olay yönelimli mimaride servisleri gevşek bağlamak için kullanılır.</p>
+        </div>
+        <div class="card">
+          <h3>Rate limiting mantığı</h3>
+          <p class="muted">Rate limiting, belirli bir zaman penceresinde izin verilen istek sayısını sınırlar; sistemi kötüye kullanım veya patlamalı trafik karşısında korur. Token bucket ve leaky bucket yaygın algoritmalardır; dağıtık sistemlerde sayacın merkezi veya shard’lı tutulması gerekir. Yanıt olarak genellikle 429 Too Many Requests ve retry-after döndürülür. Limitler kullanıcı, IP veya API anahtarı bazında uygulanabilir.</p>
+        </div>
+        <div class="card">
+          <h3>Load balancing</h3>
+          <p class="muted">Load balancer, gelen trafiği birden çok backend instance’ına dağıtarak kapasite ve yüksek erişilebilirlik sağlar. Round-robin, least-connections, IP-hash gibi stratejiler kullanılır; health check’lerle bozuk nodelar trafikten çıkarılır. L4 (TCP) ve L7 (HTTP) seviyesinde çalışan tipleri vardır. Sticky session gereken durumlarda routing stateful hale gelebilir.</p>
+        </div>
+        <div class="card">
+          <h3>Reverse proxy (Nginx, Traefik)</h3>
+          <p class="muted">Reverse proxy, client isteklerini arka uç servislerine yönlendirirken tek giriş noktası ve güvenlik katmanı sağlar. Nginx ve Traefik SSL termination, gzip, caching, header rewrite ve load balancing gibi işleri üstlenir. Mikroservis ortamında servis keşfi entegrasyonu (Traefik) dinamik yönlendirme sunar. Reverse proxy katmanı, DDoS ve istek boyutu gibi politikaları merkezi uygular.</p>
+        </div>
+        <div class="card">
+          <h3>CDN nedir?</h3>
+          <p class="muted">CDN (Content Delivery Network), statik veya cache’lenebilir içeriği coğrafi olarak dağıtılmış edge sunucularında saklar. Kullanıcıya en yakın edge’den servis ederek latency’yi ve origin trafiğini düşürür. Cache key, TTL ve invalidation kuralları içerik tutarlılığı için önemlidir. Görsel/JS/CSS yanında video streaming ve edge function/worker yetenekleri de sunabilir.</p>
+        </div>
+        <div class="card">
+          <h3>Circuit breaker mantığı</h3>
+          <p class="muted">Circuit breaker, başarısız veya yavaşlayan bir servise yapılan çağrıları kısa devre ederek zincirleme çöküşü önler. Kapalı (closed), açık (open) ve yarı açık (half-open) durumları vardır; hata eşiği aşılınca açılır ve kısa süre sonra test çağrılarıyla tekrar kapatılmayı dener. Fallback yanıtları veya degrade davranışları sistemin kısmen çalışmasını sağlar. Zaman aşımları ve retry’larla birlikte uygulanmalıdır.</p>
+        </div>
+        <div class="card">
+          <h3>Health check &amp; liveness/readiness probes</h3>
+          <p class="muted">Health check, bir servis veya instance’ın çalışır durumda olup olmadığını dışarıya bildirir. Liveness probe, uygulama thread’lerinin kilitlenip kilitlenmediğini anlamak için kullanılır; başarısızsa yeniden başlatılır. Readiness probe, servisin trafiği almaya hazır olup olmadığını bildirir; başarısızsa load balancer trafik göndermez. Kubernetes gibi orkestratörler bu sinyalleri otomatik yeniden başlatma ve trafik yönlendirme için kullanır.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="guvenlik">
+      <h2>Güvenlik ve Kimlik Doğrulama Başlıkları</h2>
+      <div class="grid">
+        <div class="card">
+          <h3>Authentication vs Authorization</h3>
+          <p class="muted">Authentication (kimlik doğrulama) kullanıcının gerçekten iddia ettiği kişi olduğunu kanıtlamasıdır; şifre, MFA, token veya sertifika ile yapılır. Authorization (yetkilendirme) doğrulanmış kimliğin hangi kaynaklara hangi işlemlerle erişebileceğini belirler. Doğrulama başarılı olmadan yetki verilmez; ikisi farklı katmanlarda değerlendirilir. Yetki kararları genellikle role/attribute-based policy’lerle uygulanır.</p>
+        </div>
+        <div class="card">
+          <h3>JWT nedir? Nasıl çalışır?</h3>
+          <p class="muted">JWT (JSON Web Token), header.payload.signature formatında self-contained bir token’dır. Header algoritmayı, payload talepleri (iss, sub, exp, scopes vb.), signature ise gizli anahtar veya public/private anahtarla doğrulamayı içerir. Sunucu tarafında session saklamadan stateless kimlik doğrulama sağlar; token bütünlüğü imza ile korunur. Exp, iat, nbf gibi alanlar süre ve geçerlilik kontrolü için zorunludur; revocation için blacklist/short TTL gerekir.</p>
+        </div>
+        <div class="card">
+          <h3>OAuth2 / OpenID Connect temeli</h3>
+          <p class="muted">OAuth2, yetkilendirme delegasyonu protokolüdür; client’a kaynak sahibi adına erişim izni verir (authorization code, client credentials, refresh token akışları). OpenID Connect, OAuth2 üzerine kimlik katmanı ekleyerek ID Token ile kullanıcı kimliğini taşır. Authorization Server, Access Token üretir; Resource Server token doğrulayıp scope’lara göre yetki verir. PKCE ve state parametresi, code interception ve CSRF risklerini azaltır.</p>
+        </div>
+        <div class="card">
+          <h3>HTTPS &amp; TLS</h3>
+          <p class="muted">HTTPS, HTTP’nin TLS tüneli içinde şifrelenmiş halidir; veri gizliliği, bütünlük ve sunucu kimlik doğrulaması sağlar. TLS handshake ile taraflar sertifika doğrulaması yapar ve paylaşılan oturum anahtarları oluşturur. Modern ayarlar TLS 1.2/1.3, güçlü cipher suite’ler ve HSTS kullanımını içerir. Sertifika zinciri, OCSP/CRL ve SNI gibi mekanizmalar güvenliği ve uyumluluğu belirler.</p>
+        </div>
+        <div class="card">
+          <h3>Rate limiting’in güvenlik bağlantısı</h3>
+          <p class="muted">Rate limiting, brute force, credential stuffing ve DDoS gibi saldırılara karşı ilk savunma hattıdır. IP, kullanıcı veya token bazlı kotalar saldırı yüzeyini daraltır; 429 ve retry-after yanıtlarıyla sinyal verilir. Limitler, WAF ve bot koruma çözümleriyle birlikte uygulanır; dağıtık sayaçlar tutarlılık gerektirir. Patlamalı trafikte sistemin kaynaklarının tükenmesini engelleyerek hizmet sürekliliğini korur.</p>
+        </div>
+        <div class="card">
+          <h3>CSRF / XSS basit özet</h3>
+          <p class="muted">CSRF, kurbanın tarayıcısındaki geçerli oturumla habersiz istek göndermesidir; same-site cookie, CSRF token ve SameSite=Lax/Strict ayarlarıyla önlenir. XSS, kullanıcı girdisinin kaçış yapılmadan çalıştırılmasıdır; output encoding, CSP ve input validation ile engellenir. Reflected, stored ve DOM-based XSS varyantları farklı vektörler kullanır. Her iki saldırı da tarayıcı güvenlik modelini hedefler ve defense-in-depth gerektirir.</p>
+        </div>
+        <div class="card">
+          <h3>Password hashing (bcrypt, argon2)</h3>
+          <p class="muted">Parolalar geri döndürülemez şekilde hash’lenmeli; bcrypt ve Argon2 gibi yavaş, tuzlu (salted) algoritmalar kullanılmalıdır. bcrypt cost parametresi ve Argon2’de zaman/bellek/parallelism ayarları brute force maliyetini yükseltir. Salt, aynı parolaların aynı hash’i üretmesini engelleyerek rainbow table saldırılarını boşa çıkarır. Hash fonksiyonlarını hızlı (SHA-256 gibi) kullanmak parolalar için yanlıştır; KDF/PAKE yaklaşımları tercih edilir.</p>
+        </div>
+      </div>
+    </section>
+
+
     <section id="haric">
       <h2>Kapsama Girmeyenler</h2>
       <p class="muted">Boğucu detaylar burada yok:</p>
