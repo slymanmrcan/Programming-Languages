@@ -237,6 +237,7 @@
           <a href="#dil-eko-ozet">Dil/Eko Özet</a>
           <a href="#db-kavramlar">DB Kavramları</a>
           <a href="#dagitik-perf">Dağıtık &amp; Performans</a>
+          <a href="#operasyon">Operasyon</a>
           <a href="#guvenlik">Güvenlik</a>
           <a href="#teknik-kavramlar">Teknik Kavramlar</a>
           <a href="#haric">Kapsam Dışı</a>
@@ -618,6 +619,28 @@
         <div class="card">
           <h3>Health check &amp; liveness/readiness probes</h3>
           <p class="muted">Health check, bir servis veya instance’ın çalışır durumda olup olmadığını dışarıya bildirir. Liveness probe, uygulama thread’lerinin kilitlenip kilitlenmediğini anlamak için kullanılır; başarısızsa yeniden başlatılır. Readiness probe, servisin trafiği almaya hazır olup olmadığını bildirir; başarısızsa load balancer trafik göndermez. Kubernetes gibi orkestratörler bu sinyalleri otomatik yeniden başlatma ve trafik yönlendirme için kullanır.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="operasyon">
+      <h2>Operasyon ve Pratik İpuçları</h2>
+      <div class="grid">
+        <div class="card">
+          <h3>Logging ve Observability</h3>
+          <p class="muted">Structured JSON logging, log seviyeleri (INFO/ERROR/WARN/DEBUG) ve correlation/trace ID eklemek üretimde olmazsa olmazdır. Logları merkezileştirmek için ELK/Opensearch, Loki+Grafana veya bulut log servisleri kullanılır. PII/sensitive veriyi loglama; maskeleme ve redaction uygula. Log hacmini kontrol etmek için sampling ve log rotation/pipeline kuralları gerekir.</p>
+        </div>
+        <div class="card">
+          <h3>Concurrency seçimi</h3>
+          <p class="muted">I/O-bound istekler için event-loop/async modeller (Node, async Python, async .NET) yüksek bağlantı sayısında etkilidir. CPU-bound işler için goroutine veya thread pool kullanıp iş dağıtmak gerekir; tek thread/event-loop tıkanır. Oversubscription (çok fazla thread/goroutine) context switch yükü yaratır; ölçümle optimumu bul. Uzun işleri kuyruk/worker modeline ayırmak API latency’sini korur.</p>
+        </div>
+        <div class="card">
+          <h3>Veritabanı kapasitesi ve connection pool</h3>
+          <p class="muted">DB kapasitesi CPU, disk IOPS ve lock contention ile sınırlıdır; uzun sorgular tüm havuzu bloke eder. Connection pool boyutunu küçükten başlatıp (çekirdek sayısı x2–4 arası) wait time metriklerine göre ayarla. N+1 ve tam tablo taramalarını azaltmak, index ve cache kullanmak DB yükünü düşürür. Pool’ları servis başına ayrı tutup idle/lifetime sınırları koymak leak ve spike riskini azaltır.</p>
+        </div>
+        <div class="card">
+          <h3>Load balancer ne zaman?</h3>
+          <p class="muted">İkinci instance’ı eklediğin anda trafiği eşit dağıtmak ve health check yapmak için load balancer gerekir. L7 (HTTP) LB’ler path/host bazlı yönlendirme ve TLS termination sunar; mavi-yeşil/kademeli yayın için zorunludur. LB health check başarısız nodeları trafikten çeker, zero-downtime deploy sağlar. Sticky session gerekiyorsa state stratejisini (session store/cache) önceden belirle.</p>
         </div>
       </div>
     </section>
