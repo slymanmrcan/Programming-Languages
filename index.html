@@ -138,12 +138,13 @@
     }
 
     section {
-      background: var(--panel-strong);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 1.2rem 1.3rem;
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      padding: 0 0 1.4rem;
       margin-bottom: 1rem;
-      box-shadow: var(--shadow);
+      box-shadow: none;
+      border-bottom: 1px solid var(--border);
     }
 
     section h2 {
@@ -179,29 +180,14 @@
     }
 
     .card {
-      background: var(--panel);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 1rem;
+      background: transparent;
+      border: none;
+      border-left: 2px solid var(--border);
+      border-radius: 0;
+      padding: 0.4rem 0 0.4rem 0.9rem;
       display: flex;
       flex-direction: column;
       gap: 0.4rem;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .card::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(circle at 20% 20%, rgba(125, 211, 252, 0.06), transparent 55%);
-      opacity: 0;
-      transition: opacity 160ms ease;
-      pointer-events: none;
-    }
-
-    .card:hover::before {
-      opacity: 1;
     }
 
     .tag {
