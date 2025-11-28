@@ -8,16 +8,16 @@
     @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap');
 
     :root {
-      --bg: #07101f;
-      --panel: #0c172b;
-      --panel-strong: #0a1424;
+      --bg: #0d1d35;
+      --panel: #132744;
+      --panel-strong: #112138;
       --accent: #82eaff;
       --accent-2: #f6c177;
-      --muted: #9fb3c8;
-      --text: #e8edf5;
-      --border: #1c2a41;
-      --glow: rgba(130, 234, 255, 0.12);
-      --shadow: 0 18px 50px rgba(0, 0, 0, 0.35);
+      --muted: #a7bed3;
+      --text: #eef3fb;
+      --border: #243552;
+      --glow: rgba(130, 234, 255, 0.15);
+      --shadow: 0 18px 50px rgba(0, 0, 0, 0.28);
     }
 
     * {
@@ -28,9 +28,9 @@
       margin: 0;
       font-family: 'Space Grotesk', 'Inter', system-ui, -apple-system, sans-serif;
       background:
-        radial-gradient(circle at 18% 22%, rgba(130, 234, 255, 0.14), transparent 26%),
-        radial-gradient(circle at 78% 12%, rgba(246, 193, 119, 0.14), transparent 22%),
-        linear-gradient(135deg, #080e1c 0%, #0d1b2f 45%, #0a1424 100%);
+        radial-gradient(circle at 18% 22%, rgba(130, 234, 255, 0.2), transparent 28%),
+        radial-gradient(circle at 78% 12%, rgba(246, 193, 119, 0.2), transparent 24%),
+        linear-gradient(135deg, #102642 0%, #0f2340 40%, #0d1d35 100%);
       color: var(--text);
       min-height: 100vh;
       padding: 0 1.5rem 3rem;
@@ -294,99 +294,99 @@
           <h3>JavaScript / Node.js</h3>
           <p class="muted">Modern API, realtime, hızlı geliştirme.</p>
           <ul>
-            <li><strong>Kullan:</strong> Realtime (WebSocket), çok I/O’lu API’ler.</li>
-            <li><strong>Güçlü:</strong> Tek dilde (JS/TS) uçtan uca, devasa paket ekosistemi.</li>
-            <li><strong>Dikkat:</strong> CPU-bound işlerde tıkanır; worker/thread offload gerek.</li>
+            <li><strong>Kullan:</strong> Realtime (WebSocket), çok I/O’lu API’ler, BFF katmanı.</li>
+            <li><strong>Güçlü:</strong> NPM ekosistemi, Express/Fastify/NestJS ile hızlı çıkış; tek dilde (JS/TS) uçtan uca.</li>
+            <li><strong>Dikkat:</strong> CPU-bound işlerde worker_threads veya ayrı servis kullan; event loop’u bloklama.</li>
           </ul>
         </div>
         <div class="card">
           <h3>TypeScript</h3>
           <p class="muted">JavaScript'in tipli hali → backend için daha güvenli.</p>
           <ul>
-            <li><strong>Kullan:</strong> Node.js projelerinde hata payını azaltmak.</li>
-            <li><strong>Güçlü:</strong> Refactor güveni, IDE otomasyonu, kontrat netliği.</li>
-            <li><strong>Dikkat:</strong> Build/tsconfig disiplini şart; tip tanımları güncel kalmalı.</li>
+            <li><strong>Kullan:</strong> Node.js projelerinde hata payını azaltmak, büyük kod tabanında kontrat netliği.</li>
+            <li><strong>Güçlü:</strong> Refactor güveni, IDE otomasyonu, strict mode ile runtime hatalarını erkenden yakalar.</li>
+            <li><strong>Dikkat:</strong> Build/tsconfig disiplini şart; tip tanımları ve eslint/tsc pipeline’ını güncel tut.</li>
           </ul>
         </div>
         <div class="card">
           <h3>Golang (Go)</h3>
           <p class="muted">Basit, hızlı, cloud-native, microservice dostu.</p>
           <ul>
-            <li><strong>Kullan:</strong> Yüksek trafikli API, altyapı/DevOps araçları.</li>
-            <li><strong>Güçlü:</strong> Goroutine’ler, tek binary deploy, hız ve sadelik.</li>
-            <li><strong>Dikkat:</strong> Generics sınırlı; framework yerine kütüphane toplarsın.</li>
+            <li><strong>Kullan:</strong> Yüksek trafikli API, altyapı/DevOps araçları, CLI ve worker’lar.</li>
+            <li><strong>Güçlü:</strong> Goroutine/scheduler, tek statik binary, güçlü stdlib (net/http, pprof, tracing), hızlı derleme.</li>
+            <li><strong>Dikkat:</strong> Generics hâlâ gelişiyor; framework yerine kütüphane toplarsın, error handling manuel.</li>
           </ul>
         </div>
         <div class="card">
           <h3>Rust</h3>
           <p class="muted">Performans, memory güvenliği, güvenli concurrency.</p>
           <ul>
-            <li><strong>Kullan:</strong> Performans kritik servis, edge worker, WASM ile API.</li>
-            <li><strong>Güçlü:</strong> Ownership modeli, zero-cost abstraction, güçlü tooling.</li>
-            <li><strong>Dikkat:</strong> Öğrenme eğrisi dik; build süreleri ve bazı alanlarda ekosistem daha küçük.</li>
+            <li><strong>Kullan:</strong> Performans kritik servis, edge worker, WASM ile API, düşük latency proxy.</li>
+            <li><strong>Güçlü:</strong> Ownership/borrow checker ile bellek güvenliği, zero-cost abstraction, async/await ile yüksek throughput.</li>
+            <li><strong>Dikkat:</strong> Öğrenme eğrisi dik; build süreleri ve bazı alanlarda ekosistem küçük, ama güvenlik/performans getirisi yüksek.</li>
           </ul>
         </div>
         <div class="card">
           <h3>Java</h3>
           <p class="muted">Olgun JVM ekosistemi, Spring Boot üretim standardı.</p>
           <ul>
-            <li><strong>Kullan:</strong> Kurumsal API, büyük ekip, uzun ömürlü projeler.</li>
-            <li><strong>Güçlü:</strong> JVM performansı, devasa kütüphane, GC tuning seçenekleri.</li>
-            <li><strong>Dikkat:</strong> Boot süresi ve kaynak kullanımı; container imaj boyutu/GC ayarlarını izlemek gerekir.</li>
+            <li><strong>Kullan:</strong> Kurumsal API, entegrasyon hub’ları, uzun ömürlü projeler.</li>
+            <li><strong>Güçlü:</strong> Spring Boot ekosistemi, JVM JIT/GC seçenekleri (G1/ZGC), zengin kütüphane ve tooling.</li>
+            <li><strong>Dikkat:</strong> Boot süresi ve kaynak kullanımı; container imaj boyutu/GC ayarları ve warm-up’ı izlemek gerekir.</li>
           </ul>
         </div>
         <div class="card">
           <h3>C# / .NET Core</h3>
           <p class="muted">Kurumsal backend, güçlü API mimarisi, cross-platform.</p>
           <ul>
-            <li><strong>Kullan:</strong> Enterprise API, yüksek güvenlik, uzun soluklu projeler.</li>
-            <li><strong>Güçlü:</strong> ASP.NET Core pipeline, DI, tooling, Windows/Linux sorunsuz.</li>
-            <li><strong>Dikkat:</strong> Runtime boyutu; bazı senaryolarda container imajı büyük.</li>
+            <li><strong>Kullan:</strong> Enterprise API, yüksek güvenlik ve performans isteyen projeler.</li>
+            <li><strong>Güçlü:</strong> ASP.NET Core pipeline, entegre DI, gRPC/REST desteği, zengin tooling (CLI/Rider/VS), cross-platform.</li>
+            <li><strong>Dikkat:</strong> Runtime ve container boyutu; trimming/AOT seçeneklerini değerlendir, GC ayarlarını izle.</li>
           </ul>
         </div>
         <div class="card">
           <h3>Python</h3>
           <p class="muted">Hafif API (Flask/FastAPI), data &amp; automation.</p>
           <ul>
-            <li><strong>Kullan:</strong> Prototip, AI/ML servisleri, script + API birleşimi.</li>
-            <li><strong>Güçlü:</strong> Zengin bilimsel ekosistem, basitlik.</li>
-            <li><strong>Dikkat:</strong> CPU-bound için yavaş; async yapıda dikkatli ol.</li>
+            <li><strong>Kullan:</strong> Prototip, AI/ML servisleri, script + API birleşimi, ETL.</li>
+            <li><strong>Güçlü:</strong> Zengin bilimsel ekosistem (NumPy/Pandas/PyTorch), hızlı geliştirme, FastAPI/Flask ile hafif API.</li>
+            <li><strong>Dikkat:</strong> GIL sebebiyle CPU-bound yavaş; async’te dikkatli ol, ağır işleri C uzantısı veya ayrı servisle çöz.</li>
           </ul>
         </div>
         <div class="card">
           <h3>PHP</h3>
           <p class="muted">Laravel ile klasik web backend kültürü.</p>
           <ul>
-            <li><strong>Kullan:</strong> CRUD ağırlıklı web app, monolith hızlı çıkarma.</li>
-            <li><strong>Güçlü:</strong> Laravel ekosistemi, hosting kolaylığı.</li>
-            <li><strong>Dikkat:</strong> Yüksek performans için opcache/queue tuning gerek.</li>
+            <li><strong>Kullan:</strong> CRUD ağırlıklı web app, monolith hızlı çıkarma, CMS/portal.</li>
+            <li><strong>Güçlü:</strong> Laravel ekosistemi, hazır paketler, yaygın hosting; FPM/Nginx ile kolay kurulum.</li>
+            <li><strong>Dikkat:</strong> Yüksek trafikte opcache/queue tuning ve cache stratejisi şart; uzun işlemleri job queue’ya al.</li>
           </ul>
         </div>
         <div class="card">
           <h3>Ruby</h3>
           <p class="muted">Rails → modern web framework kültürünün kurucusu.</p>
           <ul>
-            <li><strong>Kullan:</strong> Ürün odaklı SaaS, CRUD + dashboard.</li>
-            <li><strong>Güçlü:</strong> Convention over configuration, hızlı MVP.</li>
-            <li><strong>Dikkat:</strong> Yüksek trafik için scaling ve background job stratejisi şart.</li>
+            <li><strong>Kullan:</strong> Ürün odaklı SaaS, CRUD + dashboard, admin paneller.</li>
+            <li><strong>Güçlü:</strong> Rails’in “convention over configuration” yaklaşımı, scaffold, ActiveJob/ActiveRecord, hızlı MVP.</li>
+            <li><strong>Dikkat:</strong> Yüksek trafikte cache + job queue (Sidekiq) ve çoklu process (Puma) stratejisi şart.</li>
           </ul>
         </div>
         <div class="card">
           <h3>Elixir</h3>
           <p class="muted">Erlang VM üzerinde yüksek concurrency.</p>
           <ul>
-            <li><strong>Kullan:</strong> Realtime, messaging, fault-tolerant servisler.</li>
-            <li><strong>Güçlü:</strong> BEAM dayanıklılığı, milyonlarca lightweight process.</li>
-            <li><strong>Dikkat:</strong> Ekipte BEAM deneyimi gerek; ekosistem görece niş.</li>
+            <li><strong>Kullan:</strong> Realtime, messaging, fault-tolerant servisler, telekom/sohbet.</li>
+            <li><strong>Güçlü:</strong> BEAM VM dayanıklılığı, milyonlarca lightweight process, Phoenix ile LiveView/realtime.</li>
+            <li><strong>Dikkat:</strong> BEAM deneyimi gerekir; ekosistem niş, fakat üretim dayanıklılığı yüksek.</li>
           </ul>
         </div>
         <div class="card">
           <h3>Kotlin</h3>
           <p class="muted">Java ekosisteminin modern alternatifi. Backend + Android desteği.</p>
           <ul>
-            <li><strong>Kullan:</strong> JVM üzerinde modern backend; Android + backend aynı dil.</li>
-            <li><strong>Güçlü:</strong> Spring ile uyum, Ktor ile hafif API.</li>
-            <li><strong>Dikkat:</strong> JVM tuning bilgisi gerekir; build sürelerini optimize et.</li>
+            <li><strong>Kullan:</strong> JVM üzerinde modern backend; Android + backend aynı dil, event-driven servisler.</li>
+            <li><strong>Güçlü:</strong> Null-safety, coroutines, Spring Boot uyumu, Ktor ile hafif API; Java ekosistemine tam erişim.</li>
+            <li><strong>Dikkat:</strong> JVM tuning bilgisi gerekir; Gradle/build cache ayarlarını optimize et.</li>
           </ul>
         </div>
         <div class="card">
