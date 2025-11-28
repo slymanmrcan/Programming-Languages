@@ -75,67 +75,30 @@
       font-size: 0.8rem;
     }
 
-    .layout {
-      display: grid;
-      grid-template-columns: 260px 1fr;
-      gap: 1rem;
-      align-items: start;
-    }
-
-    @media (max-width: 960px) {
-      .layout {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    aside.toc {
-      position: sticky;
-      top: 1rem;
-      align-self: start;
-      background: var(--panel-strong);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 1rem;
-      box-shadow: var(--shadow);
-    }
-
-    .toc-title {
-      font-weight: 700;
-      margin-bottom: 0.4rem;
-      letter-spacing: -0.01em;
-    }
-
-    nav.menu {
+    .top-nav {
       display: flex;
-      flex-direction: column;
-      gap: 0.3rem;
-      margin-bottom: 0.8rem;
+      gap: 0.55rem;
+      flex-wrap: wrap;
+      padding: 0.9rem 0;
+      margin-bottom: 0.4rem;
     }
 
-    nav.menu a {
+    .top-nav a {
       color: var(--text);
       text-decoration: none;
-      padding: 0.55rem 0.85rem;
-      border-radius: 10px;
+      padding: 0.55rem 0.95rem;
+      border-radius: 12px;
       border: 1px solid var(--border);
-      background: var(--panel);
+      background: rgba(255, 255, 255, 0.02);
       transition: all 150ms ease;
       font-weight: 600;
       font-size: 0.95rem;
     }
 
-    nav.menu a:hover {
+    .top-nav a:hover {
       border-color: var(--accent);
       color: #0b1222;
       background: var(--accent);
-    }
-
-    .toc-note {
-      font-size: 0.9rem;
-      color: var(--muted);
-      border-top: 1px solid var(--border);
-      padding-top: 0.6rem;
-      margin-top: 0.6rem;
     }
 
     section {
@@ -265,24 +228,19 @@
       </p>
     </header>
 
-    <div class="layout">
-      <aside class="toc">
-        <div class="toc-title">İçindekiler</div>
-        <nav class="menu">
-          <a href="#dil-secimi">Dil Seçimi</a>
-          <a href="#veri-katmani">Veri Katmanı</a>
-          <a href="#servis-akisi">Servis Akışı</a>
-          <a href="#dagitik-dayaniklilik">Dağıtık &amp; Dayanıklılık</a>
-          <a href="#operasyon">Operasyon</a>
-          <a href="#test-yayin">Test &amp; Yayın</a>
-          <a href="#guvenlik">Güvenlik</a>
-          <a href="#teknik-notlar">Teknik Notlar</a>
-          <a href="#kapsam-disi">Kapsam Dışı</a>
-          <a href="#not">Not</a>
-        </nav>
-        <div class="toc-note">Başlıklara tıkla; bölümler tek bakışta okunacak şekilde sıkıştırıldı.</div>
-      </aside>
-      <main class="content">
+    <nav class="top-nav">
+      <a href="#dil-secimi">Dil Seçimi</a>
+      <a href="#veri-katmani">Veri Katmanı</a>
+      <a href="#servis-akisi">Servis Akışı</a>
+      <a href="#dagitik-dayaniklilik">Dağıtık &amp; Dayanıklılık</a>
+      <a href="#operasyon">Operasyon</a>
+      <a href="#test-yayin">Test &amp; Yayın</a>
+      <a href="#guvenlik">Güvenlik</a>
+      <a href="#teknik-notlar">Teknik Notlar</a>
+      <a href="#kapsam-disi">Kapsam Dışı</a>
+      <a href="#not">Not</a>
+    </nav>
+    <main class="content">
 
     <section id="dil-secimi">
       <div class="section-head">
@@ -780,8 +738,7 @@
         Swift, Objective-C gibi diller backend dünyasının ana konseptine girmiyor; dokümana eklenmedi.
       </div>
     </section>
-      </main>
-    </div>
+    </main>
   </div>
   <a class="to-top" href="#top" aria-label="Başa dön">Yukarı ↑</a>
 </body>
