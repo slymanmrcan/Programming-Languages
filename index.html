@@ -408,7 +408,7 @@
           <h3>PostgreSQL</h3>
           <ul>
             <li><strong>Altyapı:</strong> C ile yazıldı; güçlü planner/optimizer, MVCC.</li>
-            <li><strong>Kullan/Güç:</strong> ACID, zengin index tipleri, JSONB, extension (PostGIS, pgvector); tek node’da doğru index/pool ile on binlerce RPS.</li>
+            <li><strong>Kullan/Güç:</strong> ACID, zengin index tipleri, JSONB, extension (PostGIS, pgvector); tek node’da doğru index/pool ile yüksek RPS.</li>
             <li><strong>Dikkat:</strong> Vacuum/ANALYZE disiplini, replication/partition tasarımı; büyük join’lerde planı gözle.</li>
           </ul>
         </div>
@@ -416,7 +416,7 @@
           <h3>MySQL / MariaDB</h3>
           <ul>
             <li><strong>Altyapı:</strong> C/C++ (InnoDB engine); yıllardır LAMP’ın omurgası.</li>
-            <li><strong>Kullan/Güç:</strong> Basit CRUD/web, managed servis bolluğu; replikasyonla yatay okuma, uygun index ile on binler RPS.</li>
+            <li><strong>Kullan/Güç:</strong> Basit CRUD/web, managed servis bolluğu; replikasyonla yatay okuma, uygun index ile yüksek RPS.</li>
             <li><strong>Dikkat:</strong> Engine seçimi (InnoDB), bazı gelişmiş SQL özellikleri kısıtlı; write scaling için sharding gerek.</li>
           </ul>
         </div>
@@ -425,7 +425,7 @@
           <ul>
             <li><strong>Altyapı:</strong> C, tek dosya veritabanı; embed çalışır.</li>
             <li><strong>Kullan/Güç:</strong> Edge, mobil, prototip, CLI; sıfır ops, tek binary. Hafif okuma yükünde binler RPS.</li>
-            <li><strong>Dikkat:</strong> Yüksek concurrency yok; aynı anda yazı sınırlı, sunucu değil.</li>
+            <li><strong>Dikkat:</strong> Sunucu değil; WAL modunda çok okuyucu + tek yazıcı destekler ama yüksek concurrency’ye uygun değil.</li>
           </ul>
         </div>
         <div class="card">
