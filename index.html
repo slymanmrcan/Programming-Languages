@@ -264,6 +264,7 @@
     <nav class="top-nav">
       <a href="#dil-secimi">Dil Seçimi</a>
       <a href="#dil-senaryolari">Dil Senaryoları</a>
+      <a href="#dil-modeli">Dil Çalışma Modeli</a>
       <a href="#veri-katmani">Veri Katmanı</a>
       <a href="#servis-akisi">Servis Akışı</a>
       <a href="#dagitik-dayaniklilik">Dağıtık &amp; Dayanıklılık</a>
@@ -424,6 +425,82 @@
           <p class="muted">CDN/edge worker veya L4/L7 proxy benzeri iş yükü. <strong>Seç:</strong> Rust (Axum/Actix) veya Go; hafif binary, düşük bellek, güvenli concurrency. TLS termination, rate limit ve basit rewrite için minimal middleware; cold start ve bellek ayak izini ölç.</p>
         </div>
       </div>
+    </section>
+
+    <section id="dil-modeli">
+      <div class="section-head">
+        <h2>Dil Çalışma Modeli</h2>
+        <p class="section-desc">Derleme/çalıştırma hattı, VM/JIT/bytecode farkları ve nerede güçlü/zayıf olduklarını netleştirmek için.</p>
+      </div>
+      <div class="grid">
+        <div class="card">
+          <h3>Derleme/Çalışma Özeti</h3>
+          <p class="muted">Derlenen diller (Go, Rust, C/C++) makine kodu üretir; start-up hızlı, runtime hafif. VM/bytecode dilleri (Java/Kotlin JVM, C#/.NET CLR, Elixir BEAM) bytecode üretir, JIT ve GC ile çalışır. Yorumlanan/JIT’lenen dinamik diller (JavaScript V8, Python, Ruby, PHP) bytecode/JIT ile hızlanır; başlangıç kolay, CPU-bound’da daha sınırlı. TypeScript önce JS’e transpile olur.</p>
+          <p class="muted">Pipeline örneği: Kaynak kod → (opsiyonel transpile) → derleme/bytecode → (JIT) → makine kodu. GC’li dillerde heap temizliği latency’ye etki eder; ownership (Rust) veya manuel yönetim (C/C++) bu maliyeti runtime’dan alır.</p>
+        </div>
+      </div>
+      <h3>Dil / Derleme Modeli Matrisi</h3>
+      <table class="matrix">
+        <thead>
+          <tr>
+            <th>Dil</th>
+            <th>Derleme/Çalıştırma</th>
+            <th>Runtime / Not</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>JavaScript (Node.js)</td>
+            <td>JIT (V8), bytecode + optimizasyon; derleme yok.</td>
+            <td>Event-loop, tek thread + worker; hızlı start, CPU-bound’da sınırlı.</td>
+          </tr>
+          <tr>
+            <td>TypeScript</td>
+            <td>Transpile → JavaScript, sonra V8 JIT.</td>
+            <td>TS derlemesi build aşamasında; runtime JS gibi davranır.</td>
+          </tr>
+          <tr>
+            <td>Go</td>
+            <td>Statik derleme → tek binary (ELF/PE); linker dahildir.</td>
+            <td>GC’li ama hafif runtime; hızlı start, kolay deploy.</td>
+          </tr>
+          <tr>
+            <td>Rust</td>
+            <td>LLVM ile statik derleme → makine kodu.</td>
+            <td>GC yok, ownership modeli; yüksek performans ve güvenlik.</td>
+          </tr>
+          <tr>
+            <td>Java / Kotlin</td>
+            <td>Derleme → JVM bytecode (class/jar); JIT (HotSpot).</td>
+            <td>Olgun GC (G1/ZGC), JIT ile uzun soluklu servislerde hızlanır; AOT seçeneği var.</td>
+          </tr>
+          <tr>
+            <td>C# / .NET</td>
+            <td>Derleme → IL; JIT (RyuJIT), Native AOT seçeneği.</td>
+            <td>CLR GC, cross-platform; AOT ile cold start düşürülebilir.</td>
+          </tr>
+          <tr>
+            <td>Python</td>
+            <td>Bytecode (pyc) + yorumlayıcı; JIT yok (CPython).</td>
+            <td>GIL nedeniyle CPU-bound sınırlı; C uzantıları veya PyPy/JIT alternatifleri hız kazandırabilir.</td>
+          </tr>
+          <tr>
+            <td>PHP</td>
+            <td>Yorumlanır + opcode cache (opcache).</td>
+            <td>Hızlı iterasyon, FPM ile çalışır; CPU-bound sınırlı, opcache kritik.</td>
+          </tr>
+          <tr>
+            <td>Ruby</td>
+            <td>Yorumlanır (YARV bytecode).</td>
+            <td>JIT deneysel; Rails ekosistemiyle üretken ama CPU-bound sınırlı.</td>
+          </tr>
+          <tr>
+            <td>Elixir</td>
+            <td>Derleme → BEAM bytecode.</td>
+            <td>BEAM VM: hafif process, preemptive scheduler, güçlü fault-tolerance.</td>
+          </tr>
+        </tbody>
+      </table>
     </section>
 
     <section id="veri-katmani">
@@ -602,6 +679,10 @@
         <div class="card">
           <h3>Connection pool</h3>
           <p class="muted">Bağlantıları yeniden kullanarak aç/kapat maliyetini düşürür. Pool boyutu küçükten başla; idle/lifetime sınırları ve health check ile sızıntıyı önle.</p>
+        </div>
+        <div class="card">
+          <h3>Yönetim araçları &amp; disiplin</h3>
+          <p class="muted">Günlük yönetim/teşhis: PostgreSQL için psql/pgAdmin/ps_top, SQL Server için SSMS/Azure Data Studio, MySQL için Workbench, Mongo için Compass, Redis için redis-cli, Dynamo için Console/CLI. Şema değişikliği GUI’de değil migration/DDL dosyası ve code review ile yapılmalı; prod’da tıklayarak değişiklik yapma. Trigger/func/acl gibi nesneleri de migration’larla versiyonla.</p>
         </div>
         <div class="card">
           <h3>DB Seçimi Testleri</h3>
