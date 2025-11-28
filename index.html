@@ -361,6 +361,14 @@
           <p class="muted"><strong>Test 1:</strong> 50k eşzamanlı WebSocket + düşük latency. <em>Seç:</em> Node.js (event-loop) + TypeScript; CPU ağır iş varsa Go/Rust mikro servis ile offload.</p>
           <p class="muted"><strong>Test 2:</strong> Kurumsal B2B API, kapsamlı domain ve entegrasyonlar. <em>Seç:</em> Java/Spring Boot veya C#/.NET Core; güçlü DI, validation, observability ve tip güveni.</p>
         </div>
+        <div class="card">
+          <h3>Dil Seçimi Senaryoları (5’li)</h3>
+          <p class="muted"><strong>Senaryo 1:</strong> 500 eşzamanlı kullanıcı, realtime bildirim/chat. <em>Seç:</em> Node.js/TypeScript; socket yükü için event-loop, ağır CPU işini worker’a ayır.</p>
+          <p class="muted"><strong>Senaryo 2:</strong> 10k RPS public REST API + rate limit. <em>Seç:</em> Go (FastHTTP/Fiber) veya .NET minimal API; düşük latency, kolay rate limit middleware.</p>
+          <p class="muted"><strong>Senaryo 3:</strong> AI/ML servis + API. <em>Seç:</em> Python (FastAPI) model servis için, önüne Go/Node gateway; ağır model işlemlerini ayrı worker’da tut.</p>
+          <p class="muted"><strong>Senaryo 4:</strong> Kurumsal entegrasyon hub’ı (SOAP/REST/gRPC karışık). <em>Seç:</em> Java/Spring Boot veya C#/.NET; sağlam typing, async I/O, zengin entegrasyon kütüphaneleri.</p>
+          <p class="muted"><strong>Senaryo 5:</strong> Edge/low-latency proxy veya WASM. <em>Seç:</em> Rust; hafif binary, güvenli bellek, yüksek throughput.</p>
+        </div>
       </div>
     </section>
 
@@ -487,6 +495,8 @@
           <h3>DB Seçimi Testleri</h3>
           <p class="muted"><strong>Test 1:</strong> Finansal OLTP, güçlü transaction + raporlama. <em>Seç:</em> PostgreSQL (varsayılan) veya SQL Server/Oracle; ACID, index çeşitliliği, karmaşık sorgu desteği.</p>
           <p class="muted"><strong>Test 2:</strong> Yüksek hacimli telemetry/event akışı, yazma ağırlıklı, basit sorgu. <em>Seç:</em> Cassandra veya DynamoDB; yatay ölçek, append-heavy iş yükü, predictable throughput.</p>
+          <p class="muted"><strong>Test 3:</strong> OLAP/raporlama, büyük veri taraması. <em>Seç:</em> Columnar (cloud warehouse) veya PostgreSQL + columnstore extension; ETL/batch dostu.</p>
+          <p class="muted"><strong>Test 4:</strong> Graph ilişkiler (öneri, sosyal). <em>Seç:</em> Neo4j/ArangoDB; graph sorgu ve traversal için optimize.</p>
         </div>
       </div>
     </section>
@@ -608,6 +618,10 @@
           <h3>SLO/SLA &amp; Alerting</h3>
           <p class="muted">Hedef metrikler: p95 latency, hata oranı, availability; bunlara göre SLO yaz ve error budget’a alarm bağla. Semptom bazlı uyarı (5xx artışı, queue derinliği, CPU saturasyon) aksiyon almayı hızlandırır.</p>
         </div>
+        <div class="card">
+          <h3>Runbook &amp; Postmortem</h3>
+          <p class="muted">Her kritik alarm için runbook: 5xx artışı → log/trace, son deploy/migration kontrolü, rollback kriteri; queue şişmesi → tüketici sayısı, DLQ, backpressure; DB connection spike → pool sınırları, uzun sorgular, index eksikleri. Postmortem’de kök neden, aksiyon ve sahiplik tanımla; tekrarı önlemek için kalıcı iyileştirme ekle.</p>
+        </div>
       </div>
     </section>
 
@@ -632,6 +646,14 @@
         <div class="card">
           <h3>API kontrat ve dokümantasyon</h3>
           <p class="muted">REST için OpenAPI/Swagger, gRPC için proto tek kaynak olmalı; versiyonlama/breaking change politikası net. Contract/schema linter’ları pipeline’a ekle; örnek istek-yanıt/hata kodları entegrasyonu hızlandırır.</p>
+        </div>
+        <div class="card">
+          <h3>Rollout &amp; Flag Akışı</h3>
+          <p class="muted">Canary: küçük yüzde ile aç → metrik/alert izle → kademeli artır → sorun varsa rollback. Feature flag: kodu ship et, flag ile kısmi aç; kill-switch hazır tut.</p>
+        </div>
+        <div class="card">
+          <h3>Büyük migration/backfill</h3>
+          <p class="muted">Yeni kolon/şema ekle, kodu uyumlu deploy et, background backfill ile veriyi doldur, trafik yeni alanı kullanınca eskisini kaldır. Batch boyutlarını küçük tut, lock sürelerini izle.</p>
         </div>
       </div>
     </section>
