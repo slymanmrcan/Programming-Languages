@@ -164,6 +164,30 @@
       gap: 0.4rem;
     }
 
+    table.matrix {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 0.6rem 0;
+    }
+
+    table.matrix th,
+    table.matrix td {
+      border: 1px solid var(--border);
+      padding: 0.6rem 0.5rem;
+      text-align: left;
+    }
+
+    table.matrix th {
+      background: var(--panel);
+      color: var(--text);
+      font-weight: 700;
+    }
+
+    table.matrix td {
+      color: var(--muted);
+      background: rgba(255, 255, 255, 0.02);
+    }
+
     .tag {
       display: inline-flex;
       align-items: center;
@@ -482,6 +506,64 @@
           </ul>
         </div>
       </div>
+
+      <h3>Prosedür / Script Dilleri Eşlemesi</h3>
+      <table class="matrix">
+        <thead>
+          <tr>
+            <th>Veritabanı</th>
+            <th>Prosedür / Script</th>
+            <th>Kullanım / Not</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>PostgreSQL</td>
+            <td>PL/pgSQL (ayrıca PL/Python, PL/v8)</td>
+            <td>Fonksiyon/trigger mantığı; kompleks mantığı DB’ye yakın tutmak için. Transaction ve plan optimizasyonuna dikkat.</td>
+          </tr>
+          <tr>
+            <td>SQL Server</td>
+            <td>T-SQL Stored Procedure/Function, Agent Job</td>
+            <td>OLTP/raporlama işlerinde prosedürler; job’lar ile zamanlanmış görevler. Parametre sniffing ve plan cache’e dikkat.</td>
+          </tr>
+          <tr>
+            <td>MySQL / MariaDB</td>
+            <td>Stored Procedure/Function, Event Scheduler</td>
+            <td>Basit mantıklar için SP; ağır işlerde app katmanını tercih et. Event Scheduler ile zamanlanmış işler yapılabilir.</td>
+          </tr>
+          <tr>
+            <td>Oracle</td>
+            <td>PL/SQL</td>
+            <td>Gelişmiş prosedür/trigger desteği; paket yapısı zengin. Operasyon ve lisans maliyetine dikkat.</td>
+          </tr>
+          <tr>
+            <td>SQLite</td>
+            <td>Yerleşik SQL + trigger (stored proc yok)</td>
+            <td>Basit trigger’lar ve pragmalar; karmaşık mantık uygulama katmanında olmalı. Embed senaryolara uygun.</td>
+          </tr>
+          <tr>
+            <td>MongoDB</td>
+            <td>Aggregation Pipeline, sınırlı server-side JS</td>
+            <td>İş mantığı pipeline’da; trigger için change streams kullanılır. Ağır mantığı uygulama/worker tarafında tut.</td>
+          </tr>
+          <tr>
+            <td>Redis</td>
+            <td>Lua Script</td>
+            <td>Atomik, tek round-trip işlemler için. Uzun süren script event loop’u bloklar; kısa tut.</td>
+          </tr>
+          <tr>
+            <td>Cassandra</td>
+            <td>UDF/UDA (Java) sınırlı</td>
+            <td>Genelde önerilmez; veri modeli sorguya göre tasarlanır. İş mantığını uygulamaya koymak daha güvenli.</td>
+          </tr>
+          <tr>
+            <td>DynamoDB</td>
+            <td>Trigger = Lambda (Streams)</td>
+            <td>Doğrudan stored proc yok; Streams + Lambda ile değişiklik sonrası işlem yapılır.</td>
+          </tr>
+        </tbody>
+      </table>
 
       <h3>Veri Kavramları</h3>
       <div class="grid">
