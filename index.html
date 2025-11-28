@@ -239,6 +239,7 @@
 
     <nav class="top-nav">
       <a href="#dil-secimi">Dil Seçimi</a>
+      <a href="#dil-senaryolari">Dil Senaryoları</a>
       <a href="#veri-katmani">Veri Katmanı</a>
       <a href="#servis-akisi">Servis Akışı</a>
       <a href="#dagitik-dayaniklilik">Dağıtık &amp; Dayanıklılık</a>
@@ -368,6 +369,35 @@
           <p class="muted"><strong>Senaryo 3:</strong> AI/ML servis + API. <em>Seç:</em> Python (FastAPI) model servis için, önüne Go/Node gateway; ağır model işlemlerini ayrı worker’da tut.</p>
           <p class="muted"><strong>Senaryo 4:</strong> Kurumsal entegrasyon hub’ı (SOAP/REST/gRPC karışık). <em>Seç:</em> Java/Spring Boot veya C#/.NET; sağlam typing, async I/O, zengin entegrasyon kütüphaneleri.</p>
           <p class="muted"><strong>Senaryo 5:</strong> Edge/low-latency proxy veya WASM. <em>Seç:</em> Rust; hafif binary, güvenli bellek, yüksek throughput.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="dil-senaryolari">
+      <div class="section-head">
+        <h2>Dil Seçimi Senaryoları</h2>
+        <p class="section-desc">Duruma göre dil + mimari tercihini netleştirmek için detaylı örnekler.</p>
+      </div>
+      <div class="grid">
+        <div class="card">
+          <h3>Realtime Chat / Bildirim (500+ eşzamanlı)</h3>
+          <p class="muted">WebSocket/SSE ile yüzlerce eşzamanlı bağlantı; düşük latency kritik. <strong>Seç:</strong> Node.js/TypeScript event-loop avantajı, Redis pub/sub ile fan-out; CPU ağır iş varsa Go/Rust worker’a offload. Backpressure ve rate limit middleware’leri ekle.</p>
+        </div>
+        <div class="card">
+          <h3>10k RPS Public REST + Rate Limit</h3>
+          <p class="muted">Yüksek RPS, hafif iş mantığı, hız odaklı API. <strong>Seç:</strong> Go (net/http/FastHTTP) veya .NET minimal API; düşük GC overhead, hızlı cold start. Token bucket rate limit, connection pool tuning, p95 hedefi için latency metriklerini zorunlu topla.</p>
+        </div>
+        <div class="card">
+          <h3>AI/ML Servisi + Gateway</h3>
+          <p class="muted">Model çağrısı Python (FastAPI) üzerinde; önünde API gateway. <strong>Seç:</strong> Go veya Node.js gateway (auth, rate limit, cache), model servisleri Python; ağır CPU/GPU işleri kuyruk/worker ile ayrıştır. gRPC veya REST seçimini client ekosistemine göre yap.</p>
+        </div>
+        <div class="card">
+          <h3>Polyglot Persistence (SQL + NoSQL)</h3>
+          <p class="muted">Transaction’lı çekirdek veri + esnek doküman/önbellek ihtiyacı. <strong>Seç:</strong> İşlemler için PostgreSQL/MySQL; oturum/cache/count için Redis; şema esnekliği gereken kısım için MongoDB. Dil: Go/Java/.NET tip güvenliği ve güçlü client kütüphaneleri ile; Node.js de uygun ama connection pool disiplinine dikkat.</p>
+        </div>
+        <div class="card">
+          <h3>Edge/Proxy &amp; Çok Düşük Latency</h3>
+          <p class="muted">CDN/edge worker veya L4/L7 proxy benzeri iş yükü. <strong>Seç:</strong> Rust (Axum/Actix) veya Go; hafif binary, düşük bellek, güvenli concurrency. TLS termination, rate limit ve basit rewrite için minimal middleware; cold start ve bellek ayak izini ölç.</p>
         </div>
       </div>
     </section>
