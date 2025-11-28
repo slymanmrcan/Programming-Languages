@@ -79,19 +79,27 @@
       display: flex;
       gap: 0.55rem;
       flex-wrap: wrap;
-      padding: 0.9rem 0;
-      margin-bottom: 0.4rem;
+      padding: 0.9rem 1rem;
+      margin: 0 auto 0.8rem;
+      background: var(--panel-strong);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      box-shadow: var(--shadow);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      backdrop-filter: blur(6px);
     }
 
     .top-nav a {
       color: var(--text);
       text-decoration: none;
-      padding: 0.55rem 0.95rem;
+      padding: 0.6rem 1rem;
       border-radius: 12px;
       border: 1px solid var(--border);
-      background: rgba(255, 255, 255, 0.02);
+      background: var(--panel);
       transition: all 150ms ease;
-      font-weight: 600;
+      font-weight: 700;
       font-size: 0.95rem;
     }
 
@@ -99,6 +107,7 @@
       border-color: var(--accent);
       color: #0b1222;
       background: var(--accent);
+      box-shadow: 0 6px 18px var(--glow);
     }
 
     section {
@@ -139,9 +148,9 @@
     }
 
     .grid {
-      display: flex;
-      flex-direction: column;
+      display: grid;
       gap: 0.9rem;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
     }
 
     .card {
