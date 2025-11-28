@@ -8,16 +8,16 @@
     @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap');
 
     :root {
-      --bg: #0b1121;
-      --panel: #0f172a;
-      --panel-strong: #0b1325;
-      --accent: #7dd3fc;
-      --accent-2: #f59e0b;
-      --muted: #94a3b8;
-      --text: #e5e7eb;
-      --border: #1f2a3d;
-      --glow: rgba(125, 211, 252, 0.18);
-      --shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+      --bg: #07101f;
+      --panel: #0c172b;
+      --panel-strong: #0a1424;
+      --accent: #82eaff;
+      --accent-2: #f6c177;
+      --muted: #9fb3c8;
+      --text: #e8edf5;
+      --border: #1c2a41;
+      --glow: rgba(130, 234, 255, 0.12);
+      --shadow: 0 18px 50px rgba(0, 0, 0, 0.35);
     }
 
     * {
@@ -28,9 +28,9 @@
       margin: 0;
       font-family: 'Space Grotesk', 'Inter', system-ui, -apple-system, sans-serif;
       background:
-        radial-gradient(circle at 18% 20%, rgba(125, 211, 252, 0.12), transparent 26%),
-        radial-gradient(circle at 80% 10%, rgba(245, 158, 11, 0.12), transparent 20%),
-        var(--bg);
+        radial-gradient(circle at 18% 22%, rgba(130, 234, 255, 0.14), transparent 26%),
+        radial-gradient(circle at 78% 12%, rgba(246, 193, 119, 0.14), transparent 22%),
+        linear-gradient(135deg, #080e1c 0%, #0d1b2f 45%, #0a1424 100%);
       color: var(--text);
       min-height: 100vh;
       padding: 0 1.5rem 3rem;
@@ -56,8 +56,9 @@
 
     h1 {
       margin: 0;
-      font-size: clamp(1.85rem, 3vw, 2.5rem);
+      font-size: clamp(1.9rem, 3vw, 2.6rem);
       letter-spacing: -0.02em;
+      color: #f8fafc;
     }
 
     p.lead {
@@ -151,6 +152,7 @@
       margin-top: 0;
       margin-bottom: 0.65rem;
       letter-spacing: -0.01em;
+      color: #f8fafc;
     }
 
     section h3 {
@@ -387,6 +389,11 @@
             <li><strong>Dikkat:</strong> JVM tuning bilgisi gerekir; build sürelerini optimize et.</li>
           </ul>
         </div>
+        <div class="card">
+          <h3>Dil Seçimi Testleri</h3>
+          <p class="muted"><strong>Test 1:</strong> 50k eşzamanlı WebSocket + düşük latency. <em>Seç:</em> Node.js (event-loop) + TypeScript; CPU ağır iş varsa Go/Rust mikro servis ile offload.</p>
+          <p class="muted"><strong>Test 2:</strong> Kurumsal B2B API, kapsamlı domain ve entegrasyonlar. <em>Seç:</em> Java/Spring Boot veya C#/.NET Core; güçlü DI, validation, observability ve tip güveni.</p>
+        </div>
       </div>
     </section>
 
@@ -509,6 +516,11 @@
           <h3>Connection pool</h3>
           <p class="muted">Bağlantıları yeniden kullanarak aç/kapat maliyetini düşürür. Pool boyutu küçükten başla; idle/lifetime sınırları ve health check ile sızıntıyı önle.</p>
         </div>
+        <div class="card">
+          <h3>DB Seçimi Testleri</h3>
+          <p class="muted"><strong>Test 1:</strong> Finansal OLTP, güçlü transaction + raporlama. <em>Seç:</em> PostgreSQL (varsayılan) veya SQL Server/Oracle; ACID, index çeşitliliği, karmaşık sorgu desteği.</p>
+          <p class="muted"><strong>Test 2:</strong> Yüksek hacimli telemetry/event akışı, yazma ağırlıklı, basit sorgu. <em>Seç:</em> Cassandra veya DynamoDB; yatay ölçek, append-heavy iş yükü, predictable throughput.</p>
+        </div>
       </div>
     </section>
 
@@ -585,7 +597,7 @@
         </div>
         <div class="card">
           <h3>Load balancing</h3>
-          <p class="muted">Round-robin, least-connections, IP-hash; health check ile bozuk node’u çek. L4/L7 tipleri; sticky session için state stratejisi belirle.</p>
+          <p class="muted">Algoritmalar: round-robin, least-connections, IP-hash; health check ile bozuk node’u trafikten çek. L4 (TCP) ve L7 (HTTP) LB; L7 path/host bazlı yönlendirme sağlar. Sticky session gerekiyorsa session store veya consistent hash kullan.</p>
         </div>
         <div class="card">
           <h3>Reverse proxy</h3>
@@ -614,7 +626,8 @@
       <div class="grid">
         <div class="card">
           <h3>Logging ve Observability</h3>
-          <p class="muted">Structured JSON, seviye (INFO/ERROR/WARN/DEBUG), trace ID şart. ELK/Opensearch, Loki+Grafana veya bulut log; PII’yi maskele, sampling/rotation ile hacmi kontrol et.</p>
+          <p class="muted">Structured JSON + seviye (INFO/ERROR/WARN/DEBUG) + trace/correlation ID zorunlu. Logları merkezileştir (ELK/Opensearch, Loki+Grafana, bulut log). PII’yi maskele, sampling ve rotation ile hacmi kontrol et; yüksek gürültüde drop yerine sampling tercih et.</p>
+          <p class="muted"><strong>Tracing/Metrics:</strong> OpenTelemetry ile trace/span, RED/USE metrikleri (rate, errors, duration / utilization, saturation, errors) ve alert tanımları birlikte tutulmalı.</p>
         </div>
         <div class="card">
           <h3>Concurrency seçimi</h3>
@@ -626,7 +639,7 @@
         </div>
         <div class="card">
           <h3>SLO/SLA &amp; Alerting</h3>
-          <p class="muted">Hedef metrikleri (p95 latency, hata oranı, availability) netleştir; error budget’a göre alarm kur. Semptom bazlı uyarı (yüksek 5xx, uzun queue) aksiyon almayı hızlandırır.</p>
+          <p class="muted">Hedef metrikler: p95 latency, hata oranı, availability; bunlara göre SLO yaz ve error budget’a alarm bağla. Semptom bazlı uyarı (5xx artışı, queue derinliği, CPU saturasyon) aksiyon almayı hızlandırır.</p>
         </div>
       </div>
     </section>
