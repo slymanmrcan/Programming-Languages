@@ -285,8 +285,9 @@
       <div class="grid">
         <div class="card">
           <h3>Derleme/Çalışma Özeti</h3>
-          <p class="muted">Derlenen diller (Go, Rust, C/C++) makine kodu üretir; start-up hızlı, runtime hafif. VM/bytecode dilleri (Java/Kotlin JVM, C#/.NET CLR, Elixir BEAM) bytecode üretir, JIT ve GC ile çalışır. Yorumlanan/JIT’lenen dinamik diller (JavaScript V8, Python, Ruby, PHP) bytecode/JIT ile hızlanır; başlangıç kolay, CPU-bound’da daha sınırlı. TypeScript önce JS’e transpile olur.</p>
-          <p class="muted">Pipeline örneği: Kaynak kod → (opsiyonel transpile) → derleme/bytecode → (JIT) → makine kodu. GC’li dillerde heap temizliği latency’ye etki eder; ownership (Rust) veya manuel yönetim (C/C++) bu maliyeti runtime’dan alır.</p>
+          <p class="muted">Statik derlenen diller (Go, Rust, C/C++) doğrudan makine kodu ve çoğu zaman statik linkli tek binary üretir; cold start hızlı, runtime ayak izi küçüktür. VM/bytecode dilleri (Java/Kotlin JVM, C#/.NET CLR, Elixir BEAM) bytecode üretir; VM üzerinde JIT (Just-In-Time) + GC (Garbage Collector) ile çalışır, sıcak kodda hızlanır. Dinamik diller (JavaScript/V8, Python, Ruby, PHP) bytecode/JIT ile optimize olur; başlangıcı kolaydır, CPU-bound yüklerde GC veya GIL (Global Interpreter Lock) gibi sınırlara çabuk dayanır. TypeScript önce JS’e transpile olur, sonra JS runtime’ı çalıştırır.</p>
+          <p class="muted">Derleme hattı (statik/JIT): Kaynak → lexer/parser → AST (Abstract Syntax Tree) → IR/SSA (Intermediate Representation / Static Single Assignment) → optimizer → kod üretimi → (statik/dinamik link) → makine kodu. JIT’te ilk aşamada interpreter/baseline JIT çalışır, profil toplandıkça optimize JIT kodu üretilir; hot path hızlanır, cold start daha yavaştır. AOT (Ahead-Of-Time: Native AOT, GraalVM Native, Go/Rust) JIT süresini ortadan kaldırır ama bazı optimizasyonlardan feragat edebilir.</p>
+          <p class="muted">Bellek yönetimi: GC (mark-sweep, generational, concurrent) latency’ye ek duraklar getirir; tuning gerek. Ownership (Rust) veya manuel yönetim (C/C++) runtime maliyetini düşürür, hatayı yazılımcıya bırakır. FFI (Foreign Function Interface, C/C++) sınırları ve dynamic dispatch/reflection gibi özellikler performansa etki eder; cold/warm farkını, container cold start’ını ve profil odaklı tuning’i göz önünde bulundur.</p>
         </div>
       </div>
       <h3>Dil / Derleme Modeli Matrisi</h3>
@@ -470,6 +471,10 @@
           <p class="muted"><strong>Senaryo 3:</strong> AI/ML servis + API. <em>Seç:</em> Python (FastAPI) model servis için, önüne Go/Node gateway; ağır model işlemlerini ayrı worker’da tut.</p>
           <p class="muted"><strong>Senaryo 4:</strong> Kurumsal entegrasyon hub’ı (SOAP/REST/gRPC karışık). <em>Seç:</em> Java/Spring Boot veya C#/.NET; sağlam typing, async I/O, zengin entegrasyon kütüphaneleri.</p>
           <p class="muted"><strong>Senaryo 5:</strong> Edge/low-latency proxy veya WASM. <em>Seç:</em> Rust; hafif binary, güvenli bellek, yüksek throughput.</p>
+        </div>
+        <div class="card">
+          <h3>Dil Geçişi Metodolojisi</h3>
+          <p class="muted">1) Amaçları netleştir (performans, tip güvenliği, ekosistem). 2) Ortak kontrat (OpenAPI/proto) ve test seti oluştur. 3) Strangler pattern: yeni özellikleri yeni dilde yaz, eskiyi parça parça taşı. 4) Shared model/DTO’ları iki dilde de doğrulayan contract testleri çalıştır. 5) Gradual cutover: küçük trafiği yeni servise yönlendir, metrik/hatayı izle, kademeli artır. 6) Rollback planı hazır; feature flag ile kill-switch ekle.</p>
         </div>
       </div>
     </section>
